@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { url } from 'inspector';
 
 const styles = {
   container: {
@@ -18,21 +17,15 @@ const styles = {
   }
 }
 
-
-const Landing = (props) => {
-  const [urlText, setUrlText] = useState("");
+const Landing = () => {
   return (
     <div style={styles.container}>
       <div>
         <h1>Nova</h1>
       </div>
       <div>
-        <input onChange={(e) => {
-          setUrlText(e.target.value)
-        }} type="text" placeholder="Enter Graphql endpoint" />
-        <button onClick={ () => {
-          props.handleUrlClick(urlText);
-          }}>Let's go</button>
+        <input type="text" placeholder="Enter Graphql endpoint" />
+        <button>Let's go</button>
       </div>
     </div>
   );
