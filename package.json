@@ -36,10 +36,16 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "css-loader": "^2.1.1",
     "express": "^4.16.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "semantic-ui-css": "^2.4.1"
+    "semantic-ui": "^2.4.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.86.0",
+    "style-loader": "^0.23.1"
   }
 }

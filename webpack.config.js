@@ -19,8 +19,16 @@ module.exports = env => ({
               '@babel/preset-env',
               '@babel/preset-react',
             ],
+            plugins: [
+              ['@babel/plugin-proposal-decorators', { legacy: true }],
+              '@babel/plugin-syntax-dynamic-import',
+            ],
           },
         },
+      },
+      {
+        test: /(.css | .scss)$/,
+        use: ['style-loader', 'css-loader', 'style-loader'],
       },
     ],
   },
@@ -36,6 +44,6 @@ module.exports = env => ({
     historyApiFallback: true,
     proxy: {
       '/api': 'http://localhost:3000',
-    }
+    },
   },
 });
