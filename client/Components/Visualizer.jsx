@@ -1,9 +1,11 @@
 import React from 'react';
+import Graph from './Graph';
+import data from '../dummyData';
 
 const Visualizer = () => {
   return (
     <div>
-      Hello World
+      <Graph data={data}/>
     </div>
   )
 }
