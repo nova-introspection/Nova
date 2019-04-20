@@ -1,22 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Overlay from './Overlay';
+import Graph from './Graph';
+import data from '../dummyData';
 
-const Visualizer = () => {
-  const [counter, useCounter] = useState(0);
-  return (
-    <div>
-      <Overlay />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-        Clicked through overlay {counter} times!
-      <button type="button" onClick={() => { useCounter(counter + 1); }}>
-        Click me!
-      </button>
-    </div>
-  );
-};
+const Visualizer = () => (
+  <div>
+    <Overlay />
+    <Graph data={data} />
+  </div>
+);
 
 export default Visualizer;
