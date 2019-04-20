@@ -38,9 +38,11 @@
   "dependencies": {
     "d3": "^5.9.2",
     "express": "^4.16.4",
+    "node-fetch": "^2.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
+    "redis": "^2.8.0",
     "semantic-ui-css": "^2.4.1"
   }
 }
