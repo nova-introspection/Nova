@@ -23,7 +23,7 @@ export default {
         const height = +svg.attr('height');
         const simulation = d3.forceSimulation().nodes(data.nodes);
         const linkForce = d3.forceLink(data.links).id(function(d) { return d.name; })
-                          .distance(function(d) { return 300; });
+                          .distance(function(d) { return (d.source.radius + d.target.radius) + 200; });
                           //.distance(function(d) { return radius(d.source.value / 2) + radius(d.target.value / 2); });
         const chargeForce = d3.forceManyBody().strength(-300);
         const centerForce = d3.forceCenter(width/2, height/2);
