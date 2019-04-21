@@ -34,7 +34,7 @@ const TopMenu = (props) => {
         </Menu.Menu>
       </Menu>
       <div style={styles.settings}>
-        <Setting active={settingsActive} />
+        <Setting active={settingsActive} func={toggleSettings}/>
       </div>
     </nav>
   );

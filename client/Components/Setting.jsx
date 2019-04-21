@@ -1,11 +1,13 @@
 import React from 'react';
+import graphSetup from '../dthreeHelpers/graphSetup';
 
 const styles = {
   container: {
     width: '100px',
     height: '100px',
-    border: 'solid black 1px',
     pointerEvents: 'auto',
+    background: 'lightgray',
+    borderRadius: '5px'
   },
 };
 
@@ -19,7 +21,7 @@ const Setting = (props) => {
   }
   return (
     <div style={{ ...styles.container, display }}>
-      Hello World
+      <button onClick={() => {graphSetup.reset(); props.func()}}>reset</button>
     </div>
   );
 };
