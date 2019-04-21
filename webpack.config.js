@@ -22,6 +22,10 @@ module.exports = env => ({
           },
         },
       },
+      {
+        test: /(.css | .scss)$/,
+        use: ['style-loader', 'css-loader', 'style-loader'],
+      },
     ],
   },
   resolve: {
@@ -36,6 +40,6 @@ module.exports = env => ({
     historyApiFallback: true,
     proxy: {
       '/api': 'http://localhost:3000',
-    }
+    },
   },
 });
