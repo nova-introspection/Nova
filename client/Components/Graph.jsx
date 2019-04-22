@@ -11,18 +11,7 @@ const Graph = (props) => {
       changeHeight(window.innerHeight);
     });
   }, [width, height]);
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={graphSetup.reset}
-        style={{ position: 'fixed' }}
-      >
-        reset
-      </button>
-      <svg id="graph" width={width} height={height} />
-    </div>
-  );
+  return <svg id="graph" width={width} height={height} />;
 };
 
 export default Graph;

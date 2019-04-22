@@ -62,7 +62,7 @@ export default {
       .style("stroke", graphFunctions.nodes.darkerStroke)
       .style("stroke-width", 3)
       .on('click', graphFunctions.nodes.clickNode)
-      .on('mouseover', fade(0.07))
+      .on('mouseover', fade(0.25))
       .on('mouseout', fade(1));
         
     graphFunctions.nodes.addTextAndTitle(node);
@@ -77,7 +77,7 @@ export default {
       .scaleExtent([0.1,7])
       .on('zoom', graphFunctions.zoom.zoomActions(g));
     zoomHandler(svg);
-    zoomHandler.scaleTo(svg, .6);
+    zoomHandler.scaleTo(svg, .8);
     svg.on("dblclick.zoom", null);
 
     function tickActions() {
@@ -89,16 +89,16 @@ export default {
 
     function fade(opacity) {
       return d => {
-        if(opacity === 0.07) { document.querySelector('body').style.cursor = 'pointer'; } 
-        else { document.querySelector('body').style.cursor = 'default'; }
-        node.transition().duration(250).style('stroke-opacity', function (o) {
+        if(opacity === 1) { document.querySelector('body').style.cursor = 'default'; } 
+        else { document.querySelector('body').style.cursor = 'pointer'; }
+        node.style('stroke-opacity', function (o) {
           const thisOpacity = graphFunctions.links.isConnected(d, o, linkedByIndex) ? 1 : opacity;
           this.setAttribute('fill-opacity', thisOpacity);
           return thisOpacity;
         });
-        node.select('circle').transition().duration(250).style('color', function (o) {
+        node.select('circle').style('color', function (o) {
           const col = (o.color) ? o.color: 0;
-          const bright = d3.rgb(color(col)).brighter(.5);
+          const bright = d3.rgb(color(col)).brighter(.3);
           const original = d3.rgb(color(col));
           const fill = (opacity === 1) ? original : bright;
           this.setAttribute('fill', fill);
