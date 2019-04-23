@@ -1,37 +1,33 @@
 function SchemaGraph(data) {
   this.nodes = [];
-  this.edges = [];
+  this.links = [];
   this.addTypes(data);
 }
 
-SchemaGraph.prototype.addTypes = function(data) {
-  data.forEach(type => {
-    if (
-      type.name[0] !== '_' &&
-      type.name[1] !== '_' &&
-      type.kind !== 'SCALAR'
-    ) {
-      let thisType = new Type(type)
-      
-      let fields = thisType.fields
+SchemaGraph.prototype.addTypes = function (data) {
+  data.forEach((type) => {
+    if (type.name[0] !== '_' && type.name[1] !== '_' && type.kind !== 'SCALAR') {
+      const thisType = new Type(type);
 
+      const { fields } = thisType;
 
       if (fields) {
-        thisType.fields = fields.map(field => {
+        thisType.fields = fields.map((field, i) => {
           const f = {
             name: field.name,
             description: field.description,
             defaultValue: field.defaultValue,
             args: field.args,
+            color: i,
             isRequired: false,
             isList: false,
-            type: {}
+            type: {},
           };
-    
+
           updateTypes(f, field);
-    
-          if ( f.type.kind !== 'SCALAR' && Object.keys(f.type).length) {
-            this.edges.push(new Edge(thisType.name, f.type.name));
+
+          if (f.type.kind !== 'SCALAR' && Object.keys(f.type).length) {
+            this.links.push(new Edge(thisType.name, f.type.name, f.color));
           }
           return f;
         });
@@ -42,17 +38,21 @@ SchemaGraph.prototype.addTypes = function(data) {
   });
 };
 
-function Edge(source, target) {
+function Edge(source, target, color) {
   this.source = source;
   this.target = target;
+  this.color = color;
 }
 
 function Type(type) {
-  const { kind, name, description, fields } = type;
+  const {
+    kind, name, description, fields, color,
+  } = type;
   this.kind = kind;
   this.name = name;
   this.description = description;
   this.fields = fields;
+  this.color = color;
 }
 
 function updateTypes(objectToUpdate, data) {
@@ -92,9 +92,6 @@ function updateTypes(objectToUpdate, data) {
   }
 }
 
-
-module.exports = {SchemaGraph}
-
-
+module.exports = { SchemaGraph };
 
 // b = new SchemaGraph(a.data.__schema.types)
