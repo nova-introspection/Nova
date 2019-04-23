@@ -1,19 +1,19 @@
-const fetch = require("node-fetch");
-const { JSON_STRING } = require("../client/IntroQuery");
-const { SchemaGraph } = require("../client/GraphBuild");
+const fetch = require('node-fetch');
+const { JSON_STRING } = require('./IntroQuery');
+const { SchemaGraph } = require('./GraphBuild');
 
 const getSchema = (req, res, next) => {
   const { uri } = req.body;
   fetch(uri, {
-    method: "POST",
-    mode: "cors",
+    method: 'POST',
+    mode: 'cors',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(JSON_STRING)
+    body: JSON.stringify(JSON_STRING),
   })
     .then(res => res.json())
-    .then(data => {
+    .then((data) => {
       res.locals = new SchemaGraph(data.data.__schema.types);
       next();
     })

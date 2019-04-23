@@ -4,7 +4,7 @@ import Graph from './Graph';
 import data from '../dummyData';
 import mockData from './mockData';
 
-const Visualizer = () => {
+const Visualizer = (props) => {
   const g = mockData;
   const [sidebarActive, usesidebar] = useState(false);
   const [currentType, useCurrentType] = useState(g.nodes[0]);
@@ -18,7 +18,7 @@ const Visualizer = () => {
       const type = mockData.nodes[i];
       newMap.set(type.name, type);
     }
-
+    console.log(props);
     // Not sure if there is a way to update map and selected type at once
     useMap(newMap);
     // Not sure if its always query

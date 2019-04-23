@@ -1,15 +1,16 @@
 const path = require('path');
 const express = require('express');
-
-const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { getSchema } = require('./schemaController');
 const { checkCache, cacheSchema } = require('./cacheController');
 
+const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
