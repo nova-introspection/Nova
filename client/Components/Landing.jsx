@@ -17,6 +17,7 @@ const styles = {
 
 
 const Landing = (props) => {
+  console.log(props);
   const [urlText, setUrlText] = useState("");
   return (
     <div style={styles.container}>

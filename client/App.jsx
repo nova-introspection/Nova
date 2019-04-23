@@ -6,9 +6,9 @@ import NotFound from './Components/404';
 import {JSON_STRING} from './IntroQuery'
 
 
-const App = () => {
+const App = (props) => {
+  console.log(props);
   const [schema, setSchema] = useState("");
-
   const handleUrlClick = (url) => {
     console.log('handleClick - clicked')
     fetch(url, {
@@ -29,7 +29,7 @@ const App = () => {
     <div>
       <Switch>
         <Route exact path="/" 
-        render={(props) => <Landing handleUrlClick={handleUrlClick} />}
+        render={(props) => <Landing {...props} handleUrlClick={handleUrlClick} />}
         />
         <Route path="/visualizer" component={Visualizer} />
         <Route component={NotFound} />

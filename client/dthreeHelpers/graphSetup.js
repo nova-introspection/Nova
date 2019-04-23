@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 import graphFunctions from './graphFunctions';
-
 export default {
   reset: () => {
     const svg = d3.select('#graph');
@@ -13,7 +12,10 @@ export default {
     d3.zoom().transform(d3.select('#graph'), d3.zoomIdentity.scale(1));
     //d3.zoom().transform(d3.select('#graph'), d3.zoomIdentity.translate(width/4,height/4).scale(.4));
   },
-  setup: (data) => {
+  setup: (data, handleClick) => {
+    graphFunctions.nodes.clickNode = (d) => {
+      handleClick(d.name);
+    };
     data.nodes.forEach(item => { item.radius = item.name.length*3.5 +25; })
     const color = d3.scaleOrdinal(d3.schemePastel1);
     const radius = d3.scaleSqrt().range([0, 6]);
