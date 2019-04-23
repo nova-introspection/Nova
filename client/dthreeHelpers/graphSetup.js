@@ -14,7 +14,7 @@ export default {
     //d3.zoom().transform(d3.select('#graph'), d3.zoomIdentity.translate(width/4,height/4).scale(.4));
   },
   setup: (data) => {
-    data.nodes.forEach(item => { item.radius = item.name.length*2 +25; })
+    data.nodes.forEach(item => { item.radius = item.name.length*3.5 +25; })
     const color = d3.scaleOrdinal(d3.schemePastel1);
     const radius = d3.scaleSqrt().range([0, 6]);
     const svg = d3.select('#graph');
