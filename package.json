@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "css-loader": "^2.1.1",
     "d3": "^5.9.2",
     "express": "^4.16.4",
