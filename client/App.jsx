@@ -34,13 +34,17 @@ const App = () => {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" render={props => <Landing {...props}handleUrlClick={handleUrlClick} />} />
+          <Route
+            exact
+            path="/"
+            render={props => <Landing {...props} handleUrlClick={handleUrlClick} />}
+          />
           <Route path="/visualizer" render={props => <Visualizer {...props} schemaGraph={schema} />} />
           <Route component={NotFound} />
         </Switch>
       </div>
     </Router>
   );
-};  
+};
 
 export default App;

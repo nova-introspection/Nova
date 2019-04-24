@@ -1,38 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Overlay from './Overlay';
 import Graph from './Graph';
-import data from '../dummyData';
 import mockData from './mockData';
 
 const Visualizer = (props) => {
-  const g = props.schemaGraph;
-  const [sidebarActive, usesidebar] = useState(false);
-  const [currentType, useCurrentType] = useState(g.nodes[0]);
-  const [map, useMap] = useState(new Map());
-
-  useEffect(() => {
-    console.log('use effect: ', props)
-    // Add api call
-    const { nodes } = g;
-    const newMap = new Map();
-    for (let i = 0; i < nodes.length; i += 1) {
-      const type = props.schemaGraph.nodes[i];
-      newMap.set(type.name, type);
-    }
-    console.log(props);
-    // Not sure if there is a way to update map and selected type at once
-    useMap(newMap);
-    // Not sure if its always query
-    useCurrentType(newMap.get('Query'));
-  }, map);
+  const { schemaGraph } = props; // can be updated to props destructuring
+  const { nodes } = schemaGraph;
+  const [sidebarActive, useSidebar] = useState(false);
+  const [currentType, useCurrentType] = useState(nodes[0]);
 
   function toggleSidebar() {
-    usesidebar(!sidebarActive);
+    useSidebar(!sidebarActive);
   }
 
   function changeType(typeName) {
-    const type = map.get(typeName);
-    if (type) useCurrentType(type);
+    for (let i = 0; i < nodes.length; i += 1) {
+      if (nodes[i].name === typeName) {
+        useCurrentType(nodes[i]);
+        useSidebar(true);
+        break;
+      }
+    }
   }
 
   return (
@@ -43,7 +31,7 @@ const Visualizer = (props) => {
         changeType={changeType}
         currentType={currentType}
       />
-      <Graph data={g} changeType={changeType} />
+      <Graph data={schemaGraph} handleClick={changeType} />
     </div>
   );
 };
