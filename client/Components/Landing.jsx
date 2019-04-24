@@ -32,8 +32,7 @@ const Landing = (props) => {
         <button
           type="button"
           onClick={() => {
-            props.handleUrlClick(urlText);
-            props.history.push('/visualizer');
+            props.handleUrlClick(urlText, props.history);
           }}
         >
           Let's go

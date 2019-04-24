@@ -9,7 +9,7 @@ const SERVER_URI = 'http://localhost:3000/api/schema';
 const App = () => {
   const [schema, setSchema] = useState(null);
 
-  const handleUrlClick = (url) => {
+  const handleUrlClick = (url, history) => {
     const postBody = { uri: url };
     fetch(SERVER_URI, {
       method: 'POST',
@@ -22,7 +22,10 @@ const App = () => {
       .then(res => res.json())
       .then((data) => {
         setSchema(data);
+        console.log(schema)
         return data;
+      }).then((data) => {
+        history.push('/visualizer');
       })
       .catch(err => console.log(`error: ${err}`));
   };
