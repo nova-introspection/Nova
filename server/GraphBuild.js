@@ -5,10 +5,11 @@ function SchemaGraph(data) {
 }
 
 SchemaGraph.prototype.addTypes = function (data) {
+  let counter = 0;
   data.forEach((type) => {
     if (type.name[0] !== '_' && type.name[1] !== '_' && type.kind !== 'SCALAR') {
       const thisType = new Type(type);
-
+      thisType.color = counter++;
       const { fields } = thisType;
 
       if (fields) {
@@ -27,7 +28,7 @@ SchemaGraph.prototype.addTypes = function (data) {
           updateTypes(f, field);
 
           if (f.type.kind !== 'SCALAR' && Object.keys(f.type).length) {
-            this.links.push(new Edge(thisType.name, f.type.name, f.color));
+            this.links.push(new Edge(thisType.name, f.type.name, thisType.color));
           }
           return f;
         });
