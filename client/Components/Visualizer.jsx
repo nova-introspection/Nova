@@ -5,17 +5,18 @@ import data from '../dummyData';
 import mockData from './mockData';
 
 const Visualizer = (props) => {
-  const g = mockData;
+  const g = props.schemaGraph;
   const [sidebarActive, usesidebar] = useState(false);
   const [currentType, useCurrentType] = useState(g.nodes[0]);
   const [map, useMap] = useState(new Map());
 
   useEffect(() => {
+    console.log('use effect: ', props)
     // Add api call
     const { nodes } = g;
     const newMap = new Map();
     for (let i = 0; i < nodes.length; i += 1) {
-      const type = mockData.nodes[i];
+      const type = props.schemaGraph.nodes[i];
       newMap.set(type.name, type);
     }
     console.log(props);
