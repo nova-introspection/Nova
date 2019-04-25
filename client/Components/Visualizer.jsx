@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Overlay from './Overlay';
 import Graph from './Graph';
-import mockData from './mockData';
 
 const Visualizer = (props) => {
   const { schemaGraph } = props; // can be updated to props destructuring
