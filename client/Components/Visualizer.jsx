@@ -22,10 +22,12 @@ const Visualizer = (props) => {
     }
   }
 
+  const active = (sidebarActive) ? 'activeColor' : '';
   return (
     <div>
       <Overlay
         toggleSidebar={toggleSidebar}
+        colorChange={active}
         visible={sidebarActive}
         changeType={changeType}
         currentType={currentType}
