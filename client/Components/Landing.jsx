@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-const styles = {
-  container: {
-    height: '100vh',
-    width: '100vw',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  description: {
-    width: '50vw',
-  },
-};
-
 const Landing = (props) => {
   const [urlText, setUrlText] = useState('');
   return (
-    <div style={styles.container}>
+    <div className="landingContainer">
       <div>
         <h1>Nova</h1>
       </div>

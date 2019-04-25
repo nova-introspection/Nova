@@ -8,15 +8,9 @@ import {
 import Field from './Field';
 
 const styles = {
-  container: {
-    height: '100%',
-  },
   sidebar: {
     height: '100%',
     background: 'transparent',
-  },
-  clickable: {
-    pointerEvents: 'auto',
   },
 };
 
@@ -32,7 +26,7 @@ const MySidebar = (props) => {
   ));
 
   return (
-    <div style={styles.container}>
+    <div className="sidebarContainer">
       <Sidebar.Pushable as={Segment} style={styles.sidebar}>
         <Sidebar
           as={Menu}
@@ -42,10 +36,9 @@ const MySidebar = (props) => {
           vertical
           visible={visible}
           width="wide"
-          style={styles.clickable}
+          className="pointerEventsAuto"
         >
           <Menu.Item as="a" onClick={() => changeType('Query')}>
-            {type.name !== 'Query' && <Icon size="mini" style={{ float: 'left' }} name="caret left" />}
             { type.name }
           </Menu.Item>
           <Menu.Item>

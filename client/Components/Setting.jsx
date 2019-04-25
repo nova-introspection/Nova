@@ -1,27 +1,14 @@
 import React from 'react';
 import graphSetup from '../dthreeHelpers/graphSetup';
 
-const styles = {
-  container: {
-    width: '100px',
-    height: '100px',
-    pointerEvents: 'auto',
-    background: 'lightgray',
-    borderRadius: '5px'
-  },
-};
-
 const Setting = (props) => {
   const { active } = props;
-  let display;
-  if (active) {
-    display = 'block';
-  } else {
-    display = 'none';
-  }
+  const display = (active) ? 'block' : 'none';
   return (
-    <div style={{ ...styles.container, display }}>
-      <button onClick={() => {graphSetup.reset(); props.func()}}>reset</button>
+    <div style={{ display }} className="settingsContainer pointerEventsAuto">
+      <div className="btnContainer">
+        <p onClick={() => {graphSetup.reset(); props.func()}} className="clickable settingsBtn">reset</p>
+      </div>
     </div>
   );
 };

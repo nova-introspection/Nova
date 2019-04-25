@@ -2,50 +2,29 @@ import React, { useState } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 import Setting from './Setting';
 
-const styles = {
-  clickable: {
-    pointerEvents: 'auto',
-  },
-  icon: {
-    color:'smokewhite'
-  },
-  settings: {
-    position: 'fixed',
-    top: '12px',
-    right: '20px',
-    cursor: 'pointer',
-    color: 'whitesmoke',
-    pointerEvents: 'auto',
-  },
-  settingBox: {
-    position: 'fixed',
-    top: '40px',
-    right: '20px',
-  },
-  menu: {
-    position: 'fixed',
-    top: '12px',
-    left: '20px',
-    cursor: 'pointer',
-    color: 'whitesmoke',
-    zIndex: '100',
-    pointerEvents: 'auto',
-  }
-};
-
 const TopMenu = (props) => {
-  const { toggleSidebar } = props;
+  const { toggleSidebar, colorChange } = props;
   const [settingsActive, useSettings] = useState(false);
 
   function toggleSettings() {
     useSettings(!settingsActive);
   }
-
+  const active = (settingsActive) ? 'activeColor' : '';
   return (
     <nav>
-      <div onClick={toggleSidebar} style={styles.menu}><i class="fas fa-bars"></i></div>
-      <div onClick={() => toggleSettings() } style={styles.settings}><i class="fas fa-ellipsis-h"></i></div>
-      <div style={styles.settingBox}>
+      <div 
+        onClick={toggleSidebar} 
+        className={`whitesmoke fixed clickable menu pointerEventsAuto icon ${colorChange}`}
+      >
+        <i className="fas fa-grip-lines fa-lg"></i>
+      </div>
+      <div 
+        onClick={() => toggleSettings() } 
+        className={`whitesmoke fixed clickable options pointerEventsAuto icon ${active}`}
+      >
+        <i className="fas fa-ellipsis-h fa-lg"></i>
+      </div>
+      <div className="optionsBox fixed">
         <Setting active={settingsActive} func={toggleSettings}/>
       </div>
       {/* <Menu attached="top" inverted style={{borderRadius: '0'}}>
