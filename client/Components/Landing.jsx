@@ -14,6 +14,11 @@ const Landing = (props) => {
           }}
           type="text"
           placeholder="Enter Graphql endpoint"
+          onKeyPress={(event) => {
+            if (event.key === 'Enter') {
+              props.handleUrlClick(urlText, props.history);
+            }
+          }}
         />
         <button
           type="button"
