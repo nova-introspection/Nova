@@ -7,8 +7,7 @@ import NotFound from './Components/404';
 const SERVER_URI = 'http://localhost:3000/api/schema';
 
 const App = () => {
-  const [schema, setSchema] = useState(null);
-
+  const [schema, setSchema] = useState(JSON.parse(sessionStorage.getItem('schema')) || null);
   const handleUrlClick = (url, history) => {
     const postBody = { uri: url };
     fetch(SERVER_URI, {
@@ -22,9 +21,10 @@ const App = () => {
       .then(res => res.json())
       .then((data) => {
         setSchema(data);
-        console.log(schema)
         return data;
-      }).then((data) => {
+      })
+      .then((data) => {
+        sessionStorage.setItem('schema', JSON.stringify(data));
         history.push('/visualizer');
       })
       .catch(err => console.log(`error: ${err}`));
@@ -39,7 +39,10 @@ const App = () => {
             path="/"
             render={props => <Landing {...props} handleUrlClick={handleUrlClick} />}
           />
-          <Route path="/visualizer" render={props => <Visualizer {...props} schemaGraph={schema} />} />
+          <Route
+            path="/visualizer"
+            render={props => <Visualizer {...props} schemaGraph={schema} />}
+          />
           <Route component={NotFound} />
         </Switch>
       </div>
