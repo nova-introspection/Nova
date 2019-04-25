@@ -80,7 +80,7 @@ export default {
       .scaleExtent([0.1, 7])
       .on('zoom', graphFunctions.zoom.zoomActions(g));
     zoomHandler(svg);
-    zoomHandler.scaleTo(svg, 0.8);
+    zoomHandler.scaleTo(svg, 0.7);
     svg.on('dblclick.zoom', null);
 
     function tickActions() {
