@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.whitesmoke { color: whitesmoke; }
+.clickable { cursor: pointer; }
+.fixed { position: fixed; }
+
+.options {
+    top: 12px;
+    right: 20px;
+    pointer-events: auto;
+}
+
+.optionsBox {
+    top: 35px;
+    right: 20px;
+}
+
+.menu {
+    top: 12px;
+    left: 20px;
+    z-index: 100;
+    pointer-events: auto;
+}

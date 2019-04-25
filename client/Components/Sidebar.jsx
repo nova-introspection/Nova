@@ -9,7 +9,7 @@ import Field from './Field';
 
 const styles = {
   container: {
-    height: 'calc(100% - 40px)',
+    height: '100%',
   },
   sidebar: {
     height: '100%',

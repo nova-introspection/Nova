@@ -6,11 +6,31 @@ const styles = {
   clickable: {
     pointerEvents: 'auto',
   },
+  icon: {
+    color:'smokewhite'
+  },
   settings: {
     position: 'fixed',
-    top: '50px',
-    right: '10px',
+    top: '12px',
+    right: '20px',
+    cursor: 'pointer',
+    color: 'whitesmoke',
+    pointerEvents: 'auto',
   },
+  settingBox: {
+    position: 'fixed',
+    top: '40px',
+    right: '20px',
+  },
+  menu: {
+    position: 'fixed',
+    top: '12px',
+    left: '20px',
+    cursor: 'pointer',
+    color: 'whitesmoke',
+    zIndex: '100',
+    pointerEvents: 'auto',
+  }
 };
 
 const TopMenu = (props) => {
@@ -23,7 +43,12 @@ const TopMenu = (props) => {
 
   return (
     <nav>
-      <Menu attached="top" inverted style={{borderRadius: '0'}}>
+      <div onClick={toggleSidebar} style={styles.menu}><i class="fas fa-bars"></i></div>
+      <div onClick={() => toggleSettings() } style={styles.settings}><i class="fas fa-ellipsis-h"></i></div>
+      <div style={styles.settingBox}>
+        <Setting active={settingsActive} func={toggleSettings}/>
+      </div>
+      {/* <Menu attached="top" inverted style={{borderRadius: '0'}}>
         <Menu.Item onClick={toggleSidebar} style={styles.clickable}>
           <Icon name="bars" />
         </Menu.Item>
@@ -35,7 +60,7 @@ const TopMenu = (props) => {
       </Menu>
       <div style={styles.settings}>
         <Setting active={settingsActive} func={toggleSettings}/>
-      </div>
+      </div> */}
     </nav>
   );
 };
