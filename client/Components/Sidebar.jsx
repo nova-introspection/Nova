@@ -16,14 +16,18 @@ const styles = {
 
 const MySidebar = (props) => {
   const { visible, type, changeType } = props;
-
-  const fields = type.fields.map(currentField => (
-    <Field
-      key={currentField.name}
-      field={currentField}
-      handleClick={() => changeType(currentField.type.name)}
-    />
-  ));
+  let fields;
+  if (type.fields) {
+    fields = type.fields.map(currentField => (
+      <Field
+        key={currentField.name}
+        field={currentField}
+        handleClick={() => changeType(currentField.type.name)}
+      />
+    ));
+  } else {
+    fields = [];
+  }
 
   return (
     <div className="sidebarContainer">
