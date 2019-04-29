@@ -1,16 +1,18 @@
 import React from 'react';
 import graphSetup from '../dthreeHelpers/graphSetup';
+import { withRouter } from 'react-router-dom';
 
 const Setting = (props) => {
-  const { active } = props;
+  const { active, history } = props;
   const display = (active) ? 'block' : 'none';
   return (
     <div style={{ display }} className="settingsContainer pointerEventsAuto">
       <div className="btnContainer">
-        <p onClick={() => {graphSetup.reset(); props.func()}} className="clickable settingsBtn">reset</p>
+        <p onClick={() => { graphSetup.reset(); props.func() }} className="clickable settingsBtn">Recenter</p>
+        <p onClick={() => { history.push('/') }} className="clickable settingsBtn">Back</p>
       </div>
     </div>
   );
 };
 
-export default Setting;
+export default withRouter(Setting);
