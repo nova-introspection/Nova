@@ -1,28 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Logo from '../assets/novaFullLogo.jsx';
 
 const Landing = (props) => {
   const [urlText, setUrlText] = useState('');
   return (
     <div className="landingContainer">
       <div>
-        <h1>Nova</h1>
+        <Logo width={300}/>
       </div>
       <div>
         <input
-          onChange={(e) => {
-            setUrlText(e.target.value);
-          }}
+          id="landingInput"
+          onChange={(e) => { setUrlText(e.target.value); }}
+          onKeyDown={(e) => { props.handleUrlClick(e, urlText, props.history) }}
           type="text"
-          placeholder="Enter Graphql endpoint"
+          placeholder="enter GraphQL endpoint"
         />
-        <button
-          type="button"
-          onClick={() => {
-            props.handleUrlClick(urlText, props.history);
-          }}
-        >
-          Let's go
-        </button>
       </div>
     </div>
   );

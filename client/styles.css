@@ -8,6 +8,16 @@ html { height: 100%; overflow: hidden; }
 body { height: 100%; overflow: hidden; }
 button:focus { outline: none; }
 
+/*LOGO STYLING
+=================================*/
+.fullLogo {
+    fill: none;
+    stroke: #000;
+    stroke-miterlimit: 10;
+    stroke-width: 1.5px;
+}
+/*===============================*/
+
 .landingContainer {
     height: 100vh;
     width: 100vw;
@@ -16,6 +26,16 @@ button:focus { outline: none; }
     justify-content: center;
     flex-direction: column;
 }
+
+#landingInput {
+    margin: 30px 0;
+    min-width: 400px;
+    padding: 10px 18px;
+    font-size: 18px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+#landingInput:focus { outline: none; }
 
 .overlay {
     position: absolute;

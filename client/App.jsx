@@ -8,16 +8,17 @@ const SERVER_URI = 'http://localhost:3000/api/schema';
 
 const App = () => {
   const [schema, setSchema] = useState(JSON.parse(sessionStorage.getItem('schema')) || null);
-  const handleUrlClick = (url, history) => {
-    const postBody = { uri: url };
-    fetch(SERVER_URI, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(postBody),
-    })
+  const handleUrlClick = (e, url, history) => {
+    if(e.key === 'Enter') {
+      const postBody = { uri: url };
+      fetch(SERVER_URI, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postBody),
+      })
       .then(res => res.json())
       .then((data) => {
         setSchema(data);
@@ -28,6 +29,7 @@ const App = () => {
         history.push('/visualizer');
       })
       .catch(err => console.log(`error: ${err}`));
+    }
   };
 
   return (
