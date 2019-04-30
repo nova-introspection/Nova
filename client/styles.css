@@ -18,6 +18,9 @@ button:focus { outline: none; }
 }
 /*===============================*/
 
+/*LANDING STYLING
+=================================*/
+
 .landingContainer {
     height: 100vh;
     width: 100vw;
@@ -36,6 +39,24 @@ button:focus { outline: none; }
     border-radius: 20px;
 }
 #landingInput:focus { outline: none; }
+
+.loading {
+    font-size: 14px;
+    font-style: italic;
+    color: #333;
+}
+
+.invalid {
+    margin: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+    font-style: italic;
+    color: #D8000C;
+}
+
+/*===============================*/
+
 
 .overlay {
     position: absolute;
