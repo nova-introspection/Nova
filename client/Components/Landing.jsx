@@ -10,9 +10,8 @@ const Landing = (props) => {
     loadingText = <p className="invalid">Invalid GraphQL endpoint, please try again</p>;
   } else if (props.loadingState) {
     loadingText = <p className="loading">Processing GraphQL Schema...</p>;
-  } else {
-    loadingText = <br />;
-  }
+  } else { loadingText = <br />; }
+
   return (
     <div className="landingContainer">
       <div>
@@ -21,12 +20,8 @@ const Landing = (props) => {
       <div>
         <input
           id="landingInput"
-          onChange={(e) => {
-            setUrlText(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            props.handleUrlClick(e, urlText, props.history);
-          }}
+          onChange={(e) => { setUrlText(e.target.value); }}
+          onKeyDown={(e) => { props.handleUrlClick(e, urlText, props.history); }}
           type="text"
           placeholder="enter GraphQL endpoint"
         />

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Overlay from './Overlay';
 import Graph from './Graph';
+import NoSession from './NoSession';
 
 const Visualizer = (props) => {
+  if(sessionStorage.getItem('schema') === null) { return <NoSession/> }
   const { schemaGraph } = props; // can be updated to props destructuring
   const { nodes } = schemaGraph;
   const [sidebarActive, useSidebar] = useState(false);
