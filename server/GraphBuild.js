@@ -1,15 +1,54 @@
 function SchemaGraph(data) {
   this.nodes = [];
   this.links = [];
+  this.nodeList = {};
+  this.adjacencyList = {};
   this.addTypes(data);
+  this.addAdjList();
+  this.bfsColor();
+  this.addLinkColor();
+}
+
+SchemaGraph.prototype.addLinkColor = function() {
+  const path = this.links;
+  path.forEach(item => {
+    const { source } = item;
+    item.color = this.nodeList[source].color;
+  })
+}
+
+SchemaGraph.prototype.bfsColor = function() {
+  const list = this.addAdjList;
+  const data = this.nodeList;
+  const queue = [];
+  for(const key in list) { 
+    queue.push(key);
+    data[key].color = 0;
+    break; 
+  }
+  while(queue.length !== 0) {
+    const item = queue.shift();
+    const color = data[item].color;
+    list[item].forEach(item => {
+      if(data[item].color) return;
+      data[item].color = color+1;
+      queue.push(item);
+    })
+  }
+}
+
+SchemaGraph.prototype.addAdjList = function() {
+  for(const key in this.nodeList) {
+    this.addAdjList[key] = [];
+    const sourceFilter = this.links.filter(item => item.source === key);
+    sourceFilter.forEach(item => { this.addAdjList[key].push(item.target); })
+  }
 }
 
 SchemaGraph.prototype.addTypes = function (data) {
-  let counter = 0;
   data.forEach((type) => {
     if (type.name[0] !== '_' && type.name[1] !== '_' && type.kind !== 'SCALAR') {
       const thisType = new Type(type);
-      thisType.color = counter++;
       const { fields } = thisType;
 
       if (fields) {
@@ -19,7 +58,6 @@ SchemaGraph.prototype.addTypes = function (data) {
             description: field.description,
             defaultValue: field.defaultValue,
             args: field.args,
-            color: i,
             isRequired: false,
             isList: false,
             type: {},
@@ -28,12 +66,12 @@ SchemaGraph.prototype.addTypes = function (data) {
           updateTypes(f, field);
 
           if (f.type.kind !== 'SCALAR' && Object.keys(f.type).length) {
-            this.links.push(new Edge(thisType.name, f.type.name, thisType.color));
+            this.links.push(new Edge(thisType.name, f.type.name));
           }
           return f;
         });
       }
-
+      this.nodeList[thisType.name] = thisType;
       this.nodes.push(thisType);
     }
   });
@@ -42,18 +80,16 @@ SchemaGraph.prototype.addTypes = function (data) {
 function Edge(source, target, color) {
   this.source = source;
   this.target = target;
-  this.color = color;
 }
 
 function Type(type) {
   const {
-    kind, name, description, fields, color,
+    kind, name, description, fields,
   } = type;
   this.kind = kind;
   this.name = name;
   this.description = description;
   this.fields = fields;
-  this.color = color;
 }
 
 function updateTypes(objectToUpdate, data) {

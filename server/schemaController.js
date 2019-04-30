@@ -13,8 +13,8 @@ const getSchema = (req, res, next) => {
     body: JSON.stringify(JSON_STRING),
   })
     .then(res => res.json())
-    .then((data) => {
-      res.locals = new SchemaGraph(data.data.__schema.types);
+    .then(({ data }) => {
+      res.locals = new SchemaGraph(data.__schema.types);
       next();
     })
     .catch(err => res.sendStatus(400));
