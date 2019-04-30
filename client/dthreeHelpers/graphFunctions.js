@@ -3,12 +3,6 @@ import * as d3 from 'd3';
 const color = d3.scaleOrdinal(d3.schemePastel1);
 
 export default {
-  background: (svg) => {
-    svg.append('rect')
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('fill', '#212121');
-  },
   links: {
     addArrows: (g) => {
       g.append('svg:defs').selectAll('marker')
@@ -47,7 +41,6 @@ export default {
     isConnected: (a, b, obj) => obj[`${a.index},${b.index}`] || obj[`${b.index},${a.index}`] || a.index === b.index,
   },
   nodes: {
-    clickNode: (d) => { console.log(d); },
     circleColour: (d) => {
       const col = (d.color) ? d.color : 0;
       return color(col);
