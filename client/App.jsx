@@ -8,8 +8,12 @@ const SERVER_URI = 'http://localhost:3000/api/schema';
 
 const App = () => {
   const [schema, setSchema] = useState(JSON.parse(sessionStorage.getItem('schema')) || null);
+  const [invalidSchema, setInvalidSchema] = useState(false);
+  const [loadingState, setLoadingState] = useState(false);
   const handleUrlClick = (e, url, history) => {
-    if(e.key === 'Enter') {
+    if (e.key === 'Enter') {
+      setInvalidSchema(false);
+      setLoadingState(true);
       const postBody = { uri: url };
       fetch(SERVER_URI, {
         method: 'POST',
@@ -19,16 +23,16 @@ const App = () => {
         },
         body: JSON.stringify(postBody),
       })
-      .then(res => res.json())
-      .then((data) => {
-        setSchema(data);
-        return data;
-      })
-      .then((data) => {
-        sessionStorage.setItem('schema', JSON.stringify(data));
-        history.push('/visualizer');
-      })
-      .catch(err => console.log(`error: ${err}`));
+        .then(res => res.json())
+        .then((data) => {
+          setSchema(data);
+          return data;
+        })
+        .then((data) => {
+          sessionStorage.setItem('schema', JSON.stringify(data));
+          history.push('/visualizer');
+        })
+        .catch(err => setInvalidSchema(true));
     }
   };
 
@@ -39,7 +43,14 @@ const App = () => {
           <Route
             exact
             path="/"
-            render={props => <Landing {...props} handleUrlClick={handleUrlClick} />}
+            render={props => (
+              <Landing
+                {...props}
+                loadingState={loadingState}
+                invalidSchema={invalidSchema}
+                handleUrlClick={handleUrlClick}
+              />
+            )}
           />
           <Route
             path="/visualizer"
