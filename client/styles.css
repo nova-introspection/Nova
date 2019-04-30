@@ -7,6 +7,20 @@
 html { height: 100%; overflow: hidden; }
 body { height: 100%; overflow: hidden; }
 button:focus { outline: none; }
+button {
+    padding: 9px 17px;
+    margin:7.5px;
+    border: 1px solid gray;
+    color: gray;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border .2s, color .2s;
+}
+button:hover {
+    color:black;
+    border: 1px solid black;
+}
 
 /*LOGO STYLING
 =================================*/
