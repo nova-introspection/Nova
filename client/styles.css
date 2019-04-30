@@ -29,13 +29,16 @@ button:focus { outline: none; }
 
 #landingInput {
     margin: 30px 0;
-    min-width: 400px;
+    min-width: 385px;
     padding: 10px 18px;
     font-size: 18px;
     border: 1px solid lightgray;
     border-radius: 20px;
 }
-#landingInput:focus { outline: none; }
+#landingInput:focus { 
+    outline: none;
+    box-shadow: 1.2px 1.2px 2.5px rgb(252, 221, 221);
+}
 
 .overlay {
     position: absolute;
