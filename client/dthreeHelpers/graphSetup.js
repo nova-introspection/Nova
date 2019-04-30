@@ -3,25 +3,16 @@ import graphFunctions from './graphFunctions';
 
 export default {
   reset: () => {
-    // const svg = d3.select('#graph');
-    // const width = +svg.attr('width');
-    // const height = +svg.attr('height');
     d3.select('g').transition()
       .duration(250)
       .attr('transform', 'translate(0,0)scale(1)');
-    // .attr("transform", `translate(${width/4},${height/4})scale(.4)`);
     d3.zoom().transform(d3.select('#graph'), d3.zoomIdentity.scale(1));
-    // d3.zoom().transform(d3.select('#graph'), d3.zoomIdentity.translate(width/4,height/4).scale(.4));
   },
   setup: (data, handleClick) => {
-    graphFunctions.nodes.clickNode = (d) => {
-      handleClick(d.name);
-    };
-    data.nodes.forEach((item) => { item.radius = item.name.length * 3.5 + 25; });
+    graphFunctions.nodes.clickNode = (d) => { handleClick(d.name); };
     const color = d3.scaleOrdinal(d3.schemePastel1);
     // const radius = d3.scaleSqrt().range([0, 6]);
     const svg = d3.select('#graph');
-    graphFunctions.background(svg);
     const width = +svg.attr('width');
     const height = +svg.attr('height');
     const simulation = d3.forceSimulation().nodes(data.nodes);
@@ -40,13 +31,9 @@ export default {
     // .force("forceX",d3.forceX(width/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     // .force("forceY",d3.forceY(height/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     simulation.on('tick', tickActions);
-    simulation.on('end', () => {
-      simulation.stop();
-    });
 
-    const g = svg.append('g').attr('class', 'everything');
-
-    graphFunctions.links.addArrows(g);
+    const g = d3.select('.everything');
+    //graphFunctions.links.addArrows(g);
 
     const link = g.append('svg:g').selectAll('path')
       .data(data.links).enter()
@@ -110,5 +97,5 @@ export default {
         link.attr('marker-end', o => (opacity === 1 || o.source === d || o.target === d ? 'url(#end-arrow)' : 'url(#end-arrow-fade)'));
       };
     }
-  },
+  }
 };
