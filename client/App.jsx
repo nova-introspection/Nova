@@ -30,6 +30,7 @@ const App = () => {
         })
         .then((data) => {
           sessionStorage.setItem('schema', JSON.stringify(data));
+          setLoadingState(false);
           history.push('/visualizer');
         })
         .catch(err => setInvalidSchema(true));
