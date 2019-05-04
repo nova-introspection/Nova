@@ -20,7 +20,7 @@ SchemaGraph.prototype.addLinkColor = function() {
 }
 
 SchemaGraph.prototype.bfsColor = function() {
-  const list = this.addAdjList;
+  const list = this.adjacencyList;
   const data = this.nodeList;
   const queue = new LinkedList();
   for(const key in list) { 
@@ -41,9 +41,9 @@ SchemaGraph.prototype.bfsColor = function() {
 
 SchemaGraph.prototype.addAdjList = function() {
   for(const key in this.nodeList) {
-    this.addAdjList[key] = [];
+    this.adjacencyList[key] = [];
     const sourceFilter = this.links.filter(item => item.source === key);
-    sourceFilter.forEach(item => { this.addAdjList[key].push(item.target); })
+    sourceFilter.forEach(item => { this.adjacencyList[key].push(item.target); })
   }
 }
 
