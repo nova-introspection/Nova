@@ -1,3 +1,5 @@
+const LinkedList = require('./linkedList/linkedList');
+
 function SchemaGraph(data) {
   this.nodes = [];
   this.links = [];
@@ -20,19 +22,19 @@ SchemaGraph.prototype.addLinkColor = function() {
 SchemaGraph.prototype.bfsColor = function() {
   const list = this.addAdjList;
   const data = this.nodeList;
-  const queue = [];
+  const queue = new LinkedList();
   for(const key in list) { 
-    queue.push(key);
+    queue.enqueue(key);
     data[key].color = 0;
     break; 
   }
-  while(queue.length !== 0) {
-    const item = queue.shift();
+  while(!queue.isEmpty()) {
+    const item = queue.dequeue();
     const color = data[item].color;
     list[item].forEach(item => {
       if(data[item].color) return;
       data[item].color = color+1;
-      queue.push(item);
+      queue.enqueue(item);
     })
   }
 }
