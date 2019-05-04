@@ -38,7 +38,7 @@ export default {
       acc[`${d.source.index},${d.target.index}`] = 1;
       return acc;
     }, {}),
-    isConnected: (a, b, obj) => obj[`${a.index},${b.index}`] || obj[`${b.index},${a.index}`] || a.index === b.index,
+    isConnected: (a, b, obj) => obj[`${a.index},${b.index}`] || a.index === b.index, // || obj[`${b.index},${a.index}`]
   },
   nodes: {
     circleColour: (d) => {

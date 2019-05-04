@@ -1,28 +1,37 @@
 import * as d3 from 'd3';
+import { equal } from 'assert';
 import graphFunctions from './graphFunctions';
 
 export default {
   reset: () => {
-    d3.select('g').transition()
+    d3.select('g')
+      .transition()
       .duration(250)
       .attr('transform', 'translate(0,0)scale(1)');
     d3.zoom().transform(d3.select('#graph'), d3.zoomIdentity.scale(1));
   },
   setup: (data, handleClick) => {
-    graphFunctions.nodes.clickNode = (d) => { handleClick(d.name); };
+    graphFunctions.nodes.clickNode = (d) => {
+      handleClick(d.name);
+      fade(0.25);
+    };
     const color = d3.scaleOrdinal(d3.schemePastel1);
     // const radius = d3.scaleSqrt().range([0, 6]);
     const svg = d3.select('#graph');
+
     const width = +svg.attr('width');
     const height = +svg.attr('height');
     const simulation = d3.forceSimulation().nodes(data.nodes);
-    const linkForce = d3.forceLink(data.links).id(d => d.name)
-      .distance((d) => { return (d.source.radius + d.target.radius) + 1000; });
+    const linkForce = d3
+      .forceLink(data.links)
+      .id(d => d.name)
+      .distance(d => d.source.radius + d.target.radius + 1000);
     // .distance(function(d) { return radius(d.source.value / 2) + radius(d.target.value / 2); });
     const chargeForce = d3.forceManyBody().strength(-300);
     const centerForce = d3.forceCenter(width / 2, height / 2);
     const collideForce = d3.forceCollide().radius(d => d.radius * 1.5);
-    simulation.force('charge', chargeForce)
+    simulation
+      .force('charge', chargeForce)
       .force('collide', collideForce)
       .force('center', centerForce)
       .force('links', linkForce)
@@ -33,37 +42,70 @@ export default {
     simulation.on('tick', tickActions);
 
     const g = d3.select('.everything');
-    //graphFunctions.links.addArrows(g);
+    g.on('click', () => {
+      console.log('!');
+    });
+    // graphFunctions.links.addArrows(g);
 
-    const link = g.append('svg:g').selectAll('path')
-      .data(data.links).enter()
+    const link = g
+      .append('svg:g')
+      .selectAll('path')
+      .data(data.links)
+      .enter()
       .append('svg:path');
 
     graphFunctions.links.addPath(link);
 
-    const node = g.append('g').selectAll('circle')
-      .data(data.nodes).enter()
+    const node = g
+      .append('g')
+      .selectAll('circle')
+      .data(data.nodes)
+      .enter()
       .append('g');
 
-    node.append('circle')
+    node
+      .append('circle')
       .attr('class', 'nodes')
       .attr('r', graphFunctions.nodes.radius)
       .attr('fill', graphFunctions.nodes.circleColour)
       .style('stroke', graphFunctions.nodes.darkerStroke)
       .style('stroke-width', 3)
-      .on('click', graphFunctions.nodes.clickNode)
-      .on('mouseover', fade(0.25))
-      .on('mouseout', fade(1));
+      // .on('click', graphFunctions.nodes.clickNode)
+      .on('click', (d) => {
+        fade(0.04)(d);
+        graphFunctions.nodes.clickNode(d);
+      })
+      // .on('click', fade(0.25))
+      .on('mouseover', () => {
+        document.querySelector('body').style.cursor = 'pointer';
+      })
+      .on('mouseout', () => {
+        document.querySelector('body').style.cursor = 'default';
+      });
+
+    function equalToEventTarget() {
+      return this == d3.event.target;
+    }
+
+    svg.on('click', () => {
+      const circles = d3.selectAll('circle');
+      const outsideCircles = circles.filter(equalToEventTarget).empty();
+      if (outsideCircles) {
+        fade(1)(node);
+      }
+    });
 
     graphFunctions.nodes.addTextAndTitle(node);
 
-    const dragHandler = d3.drag()
+    const dragHandler = d3
+      .drag()
       .on('start', graphFunctions.drag.dragStart(simulation))
       .on('drag', graphFunctions.drag.dragDrag(simulation))
       .on('end', graphFunctions.drag.dragEnd(simulation));
     dragHandler(node);
 
-    const zoomHandler = d3.zoom()
+    const zoomHandler = d3
+      .zoom()
       .scaleExtent([0.1, 7])
       .on('zoom', graphFunctions.zoom.zoomActions(g));
     zoomHandler(svg);
@@ -79,23 +121,22 @@ export default {
 
     function fade(opacity) {
       return (d) => {
-        if (opacity === 1) { document.querySelector('body').style.cursor = 'default'; }
-        else { document.querySelector('body').style.cursor = 'pointer'; }
+        // update nodes opacity; loops through all nodes
         node.style('stroke-opacity', function (o) {
           const thisOpacity = graphFunctions.links.isConnected(d, o, linkedByIndex) ? 1 : opacity;
           this.setAttribute('fill-opacity', thisOpacity);
           return thisOpacity;
         });
         node.select('circle').style('color', function (o) {
-          const col = (o.color) ? o.color : 0;
+          const col = o.color ? o.color : 0;
           const bright = d3.rgb(color(col)).brighter(0.3);
           const original = d3.rgb(color(col));
-          const fill = (opacity === 1) ? original : bright;
+          const fill = opacity === 1 ? original : bright;
           this.setAttribute('fill', fill);
         });
-        link.style('stroke-opacity', o => (o.source === d || o.target === d ? 1 : opacity));
-        link.attr('marker-end', o => (opacity === 1 || o.source === d || o.target === d ? 'url(#end-arrow)' : 'url(#end-arrow-fade)'));
+        link.style('stroke-opacity', o => (o.source === d ? 1 : opacity));
+        link.attr('marker-end', o => (opacity === 1 || o.source === d ? 'url(#end-arrow)' : 'url(#end-arrow-fade)'));
       };
     }
-  }
+  },
 };
