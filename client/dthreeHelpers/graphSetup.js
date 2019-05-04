@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import { equal } from 'assert';
 import graphFunctions from './graphFunctions';
 
 export default {
@@ -43,7 +42,6 @@ export default {
 
     const g = d3.select('.everything');
     g.on('click', () => {
-      console.log('!');
     });
     // graphFunctions.links.addArrows(g);
 
@@ -63,25 +61,69 @@ export default {
       .enter()
       .append('g');
 
+    const node2 = g
+      .append('g')
+      .selectAll('rect')
+      .enter()
+      .append('g');
+
     node
       .append('circle')
       .attr('class', 'nodes')
       .attr('r', graphFunctions.nodes.radius)
       .attr('fill', graphFunctions.nodes.circleColour)
       .style('stroke', graphFunctions.nodes.darkerStroke)
-      .style('stroke-width', 3)
+      .style('stroke-width', 6)
       // .on('click', graphFunctions.nodes.clickNode)
       .on('click', (d) => {
         fade(0.04)(d);
         graphFunctions.nodes.clickNode(d);
       })
-      // .on('click', fade(0.25))
-      .on('mouseover', () => {
+      // .on('click', fade(0.25)) dblclick
+      .on('dblclick', function (d, e) {
+        // console.log(node._groups[0][e])
+        // node._groups[0][e]
+        const x = d3.select(this.parentElement);
+        if (!d.expanded) {
+          d.expanded = true;
+
+          x.append('rect')
+            .attr('class', 'table')
+            .attr('id', `table${e}`)
+            .attr('width', '20em')
+            .attr('height', '20em')
+            .attr('x', '2.5em')
+            .attr('y', '2.5em')
+            .attr('rx', '10px')
+            .attr('ry', '10px')
+            .attr('fill', 'whitesmoke')
+            .style('stroke', 'gray')
+            .style('stroke-width', 6);
+        } else {
+          d.expanded = false;
+          d3.select(`#table${e}`).remove()
+        }
+      })
+      .on('mouseover', (d, e) => {
         document.querySelector('body').style.cursor = 'pointer';
       })
       .on('mouseout', () => {
         document.querySelector('body').style.cursor = 'default';
       });
+
+    // node
+    //   .append('rect')
+    //   .attr('class', 'nodes2')
+    //   // .attr('r', graphFunctions.nodes.radius)
+    //   .attr('width', '10em')
+    //   .attr('height', '2em')
+    //   .attr('x', '2.5em')
+    //   .attr('y', '2.5em')
+    //   .attr('rx', '5px')
+    //   .attr('ry', '5px')
+    //   .attr('fill', 'blue')
+    //   .style('stroke', graphFunctions.nodes.darkerStroke)
+    //   .style('stroke-width', 6)
 
     function equalToEventTarget() {
       return this == d3.event.target;
