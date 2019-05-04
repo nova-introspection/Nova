@@ -8,8 +8,11 @@ const Setting = (props) => {
   return (
     <div style={{ display }} className="settingsContainer pointerEventsAuto">
       <div className="btnContainer">
-        <p onClick={() => { graphSetup.reset(); props.func() }} className="clickable settingsBtn">Recenter</p>
-        <p onClick={() => { history.push('/') }} className="clickable settingsBtn">Back</p>
+        <p onClick={() => { graphSetup.reset(); props.func(); }} className="clickable settingsBtn">Recenter</p>
+        <p onClick={() => { 
+          sessionStorage.removeItem('schema');
+          history.push('/'); 
+        }} className="clickable settingsBtn">Back</p>
       </div>
     </div>
   );

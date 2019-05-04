@@ -1,4 +1,5 @@
 const redis = require('redis');
+const parseUrl = require('url-parse');
 
 const redisClient = redis.createClient();
 const { promisify } = require('util');
@@ -25,7 +26,9 @@ const checkCache = async (req, res, next) => {
 
 const cacheSchema = (req, res, next) => {
   const { uri } = req.body;
-  redisClient.set(uri, JSON.stringify(res.locals), 'EX', EXPIRE_TIME);
+  const { hostname } = parseUrl(uri);
+  if(hostname !== 'localhost' || hostname !== '127.0.0.1')
+    redisClient.set(uri, JSON.stringify(res.locals), 'EX', EXPIRE_TIME);
   next();
 };
 
