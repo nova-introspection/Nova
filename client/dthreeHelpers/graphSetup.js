@@ -18,14 +18,14 @@ export default {
     const color = d3.scaleOrdinal(d3.schemePastel1);
     // const radius = d3.scaleSqrt().range([0, 6]);
     const svg = d3.select('#graph');
-
+    const xCenter = [400, 1400, 2400, 3400];
     const width = +svg.attr('width');
     const height = +svg.attr('height');
     const simulation = d3.forceSimulation().nodes(data.nodes);
     const linkForce = d3
       .forceLink(data.links)
       .id(d => d.name)
-      .distance(d => d.source.radius + d.target.radius + 1000);
+      .distance(d => d.source.radius + d.target.radius + 700);
     // .distance(function(d) { return radius(d.source.value / 2) + radius(d.target.value / 2); });
     const chargeForce = d3.forceManyBody().strength(-300);
     const centerForce = d3.forceCenter(width / 2, height / 2);
@@ -35,8 +35,14 @@ export default {
       .force('collide', collideForce)
       .force('center', centerForce)
       .force('links', linkForce)
-      .force('forceX', d3.forceX(width / 2).strength(0.025))
-      .force('forceY', d3.forceY(height / 2).strength(0.025));
+      //.force('forceX', d3.forceX(width / 2).strength(0.025))
+      //.force('forceY', d3.forceY(height / 2).strength(0.025))
+      .force('x', d3.forceX().x(d => {
+        if(d.color === undefined) return 0;
+        const num = (d.color > 3) ? 3 : d.color;
+        return xCenter[num];
+      }))
+      .force('y', d3.forceY().y(d => 0));
     // .force("forceX",d3.forceX(width/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     // .force("forceY",d3.forceY(height/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     simulation.on('tick', tickActions);
@@ -109,7 +115,7 @@ export default {
       .scaleExtent([0.1, 7])
       .on('zoom', graphFunctions.zoom.zoomActions(g));
     zoomHandler(svg);
-    zoomHandler.scaleTo(svg, 0.7);
+    zoomHandler.scaleTo(svg, 0.5);
     svg.on('dblclick.zoom', null);
 
     function tickActions() {
