@@ -18,6 +18,7 @@ const Nav = (props) => {
           <div className="navbar-item">
             <WhiteLogo width={90}/>
           </div>
+          <div className="navbar-item"><p style={{color:'turquoise'}}>beta</p></div>
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">

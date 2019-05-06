@@ -53,7 +53,7 @@ button:hover {
 
 #landingInput {
     margin: 30px 0;
-    width: 400px;
+    width: 80%;
 }
 #landingInput:focus { 
     outline: none;
@@ -99,6 +99,11 @@ button:hover {
 .fixed { position: fixed; }
 .pointerEventsAuto { pointer-events: auto; }
 .icon:hover { color: turquoise; }
+.is-divider {
+    width: 100%;
+    margin: 15px 0;
+    border: 1px solid aliceblue;
+}
 
 .options {
     top: 12px;
@@ -142,3 +147,7 @@ button:hover {
 }
 .btnContainer { margin: 10px 0; width: 100%; }
 .settingsBtn:hover { background: #e6e5e5 }
+
+@media(max-width:500px) {
+    #introspect { font-size: 26px; }
+}
