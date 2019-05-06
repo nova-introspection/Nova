@@ -1,16 +1,20 @@
 import React from 'react';
 import { WhiteLogo } from '../../assets/novaFullLogo.jsx';
 
-const Nav = (props) => {
-  const links = ['fa-product-hunt', 'fa-twitter', 'fa-github'];
-  const link = ['#', '#', 'https://github.com/nova-introspection/Nova'];
-  const menu = links.map((item, i) => {
+
+export const setLinks = (name, styles = {}) => {
+  const links = ['fab fa-hacker-news-square','fa-product-hunt', 'fa-twitter', 'fa-github'];
+  const link = ['#', '#', '#', 'https://github.com/nova-introspection/Nova'];
+  return links.map((item, i) => {
     return (
-      <div key={`${item}i`} className="navbar-item">
-        <a href={link[i]} target="_blank"><i className={`fab fa-lg ${item}`}></i></a>
+      <div key={`${item}${i}`} className={name}>
+        <a href={link[i]} target="_blank" style={styles}><i className={`fab fa-lg ${item}`}></i></a>
       </div>
     )
   });
+}
+
+const Nav = (props) => {
   return (
     <nav className="navbar is-dark">
       <div className="container">
@@ -22,7 +26,7 @@ const Nav = (props) => {
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
-            {menu}
+            {setLinks('navbar-item')}
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ const Examples = (props) => {
   const colors = ['is-light', 'is-warning', 'is-info', 'is-primary', 'is-link']
   const display = list.map((item, i) => {
     return (
-      <div key={`${item}i`} className="tile is-parent">
+      <div key={`${item}${i}`} className="tile is-parent">
         <div className={`tile is-child box notification button ${colors[i]}`}>
           <p className="title is-5">{item}</p>
         </div>
@@ -14,7 +14,7 @@ const Examples = (props) => {
   });
   return (
     <section className="section">
-      <p className="title is-4">Examples</p>
+      <p className="title is-4">Demo</p>
       <div className="tile is-ancestor">
         {display}
       </div>

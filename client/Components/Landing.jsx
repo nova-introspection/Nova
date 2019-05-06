@@ -3,6 +3,7 @@ import Nav from './LandingSections/Nav.jsx';
 import Level from './LandingSections/Level.jsx';
 import Examples from './LandingSections/Examples.jsx';
 import Description from './LandingSections/Description.jsx';
+import Contact from './LandingSections/Contact.jsx';
 import Footer from './LandingSections/Footer.jsx';
 
 const Landing = (props) => {
@@ -14,12 +15,12 @@ const Landing = (props) => {
     loadingText = <p className="is-size-5 has-text-danger">Invalid GraphQL endpoint, please try again</p>;
   } else if (props.loadingState) {
     loadingText = <p className="is-size-5 has-text-primary">Processing GraphQL Schema...</p>;
-  } else { loadingText = <br />; }
-  const fetching = (props.loadingState) ? 'is-loading' : '';
+  } else { loadingText = <p className="is-size-5 has-text-dark"><i className="fas fa-star"></i></p>; }
+  const fetching = (props.loadingState && !props.invalidSchema) ? 'is-loading' : '';
   return (
     <div>
       <Nav/>
-      <section className="hero is-dark is-mobile"> 
+      <section className="hero is-dark is-fullheight-with-navbar is-mobile"> 
         <div className="hero-body">
           <div className="container">
             <div>
@@ -37,7 +38,7 @@ const Landing = (props) => {
                     type="text" 
                     placeholder="Enter Graphql endpoint"/>
                     <span className="icon is-small is-left">
-                      <i className="fas fa-draw-polygon"></i>
+                      <i className="fas fa-project-diagram"></i>
                     </span>
                 </div>
               </div>
@@ -49,12 +50,11 @@ const Landing = (props) => {
       <div className="container">
         <Description/>
         <div className="is-divider"></div>
-        <Examples/>
+        <Examples history={props.history} handleUrlClick={props.handleUrlClick}/>
         <div className="is-divider"></div>
-        <Level/>
-        <div className="is-divider"></div>
+        <Contact/>
       </div>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 };
