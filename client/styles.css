@@ -5,7 +5,7 @@
 }
 
 html { height: 100%; overflow: hidden; }
-body { height: 100%; overflow: auto; }
+.hid { overflow: hidden; }
 button:focus { outline: none; }
 button {
     padding: 9px 17px;
@@ -85,7 +85,7 @@ button:hover {
 }
 
 .overlay {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
@@ -121,7 +121,7 @@ button:hover {
     z-index: 100;
 }
 
-.sidebarContainer { height: 100%; }
+.sidebarContainer { height: 100%; padding-top: 35px; }
 .sidebar {
     height: 100%;
     background: transparent;

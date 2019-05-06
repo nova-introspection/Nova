@@ -5,7 +5,7 @@ const Footer = (props) => {
     <footer className="footer notification is-white">
       <div className="container">
         <div className="content">
-          <p className="is-size-6"><i class="fas fa-copyright"></i> Copyright</p>
+          <p className="is-size-6"><i className="fas fa-copyright"></i> Copyright</p>
         </div>
       </div>
     </footer>

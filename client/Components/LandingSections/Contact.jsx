@@ -30,10 +30,11 @@ const Contact = (props) => {
           <button style={{margin:'0'}} className="button is-info is-fullwidth">Submit</button>
         </div>
         <div className="column is-half">
-          <p className="title is-size-5 has-text-centered">Media</p><br/>
-          <nav className="level is-mobile">
-            {setLinks('level-item', {color:'hsl(0, 0%, 21%)', fontSize:'25px'})}
-          </nav>
+          <div className="section">
+            <nav className="level is-mobile">
+              {setLinks('level-item', {color:'hsl(0, 0%, 21%)', fontSize:'25px'})}
+            </nav>
+          </div>
         </div>
       </div>
     </div>

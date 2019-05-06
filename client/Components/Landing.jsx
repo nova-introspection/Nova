@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from './LandingSections/Nav.jsx';
-import Level from './LandingSections/Level.jsx';
 import Examples from './LandingSections/Examples.jsx';
 import Description from './LandingSections/Description.jsx';
 import Contact from './LandingSections/Contact.jsx';
 import Footer from './LandingSections/Footer.jsx';
+import { withRouter } from 'react-router-dom';
 
 const Landing = (props) => {
   const [urlText, setUrlText] = useState('');
-
   // conditional rendering for loading/error text
   let loadingText;
   if (props.invalidSchema) {
@@ -34,7 +33,7 @@ const Landing = (props) => {
                   <input 
                     className="input is-primary is-rounded"
                     onChange={(e) => { setUrlText(e.target.value); }}
-                    onKeyDown={(e) => { props.handleUrlClick(e, urlText, props.history); }}
+                    onKeyDown={(e) => { props.handleUrlClick(urlText, props.history, e); }}
                     type="text" 
                     placeholder="Enter Graphql endpoint"/>
                     <span className="icon is-small is-left">
