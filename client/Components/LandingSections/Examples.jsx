@@ -1,12 +1,13 @@
 import React from 'react';
 
 const Examples = (props) => {
-  const list = ['Pokemon', 'Countries', 'Swapi'];
+  const list = ['Pokemon', 'Countries', 'Swapi', 'Catalysis Hub'];
   const colors = ['is-primary', 'is-warning', 'is-info', 'is-light', 'is-dark'];
   const demoLinks = [];
   demoLinks[0] = 'https://pokeapi-graphiql.herokuapp.com/';
   demoLinks[1] = 'https://countries.trevorblades.com/';
   demoLinks[2] = 'https://swapi.apis.guru';
+  demoLinks[3] = 'http://api.catalysis-hub.org/graphql';
   const display = list.map((item, i) => {
     return (
       <div key={`${item}${i}`} className="tile is-parent">

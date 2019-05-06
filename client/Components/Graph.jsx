@@ -5,7 +5,7 @@ const Graph = (props) => {
   const { handleClick, data } = props;
   const [width, changeWidth] = useState(window.innerWidth);
   const [height, changeHeight] = useState(window.innerHeight);
-  data.nodes.forEach(item => { item.radius = item.name.length * 3.5 + 25; });
+  data.nodes.forEach(item => { item.radius = item.name.length * 4.4 + 25; });
   useEffect(() => { graphSetup.setup(data, handleClick); }, data);
   useEffect(() => {
     const wind = () => {

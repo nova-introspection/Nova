@@ -42,6 +42,7 @@ const MySidebar = (props) => {
           width="wide"
           className="pointerEventsAuto"
         >
+          <Menu.Menu style={{padding:'15px 0'}}>Schema</Menu.Menu>
           <Menu.Item as="a" onClick={() => changeType('Query')}>
             { type.name }
           </Menu.Item>

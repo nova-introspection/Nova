@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Nav from './LandingSections/Nav.jsx';
 import Examples from './LandingSections/Examples.jsx';
 import Description from './LandingSections/Description.jsx';
-import Contact from './LandingSections/Contact.jsx';
+// import Contact from './LandingSections/Contact.jsx';
 import Footer from './LandingSections/Footer.jsx';
-import { withRouter } from 'react-router-dom';
 
 const Landing = (props) => {
   const [urlText, setUrlText] = useState('');
@@ -51,7 +50,7 @@ const Landing = (props) => {
         <div className="is-divider"></div>
         <Examples history={props.history} handleUrlClick={props.handleUrlClick}/>
         <div className="is-divider"></div>
-        <Contact/>
+        {/* <Contact/> */}
       </div>
       <Footer/>
     </div>

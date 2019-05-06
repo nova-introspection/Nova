@@ -2,13 +2,14 @@ import React from 'react';
 import { WhiteLogo } from '../../assets/novaFullLogo.jsx';
 
 
-export const setLinks = (name, styles = {}) => {
-  const links = ['fab fa-hacker-news-square','fa-product-hunt', 'fa-twitter', 'fa-github'];
-  const link = ['#', '#', '#', 'https://github.com/nova-introspection/Nova'];
+export const setLinks = (name = '', styles = {}) => {
+  const links = ['fa-envelope', 'fab fa-hacker-news-square','fa-product-hunt', 'fa-twitter', 'fa-github'];
+  const link = ['#', '#', '#', '#', 'https://github.com/nova-introspection/Nova'];
   return links.map((item, i) => {
+    const icon = i === 0 ? 'fas' : 'fab';
     return (
       <div key={`${item}${i}`} className={name}>
-        <a href={link[i]} target="_blank" style={styles}><i className={`fab fa-lg ${item}`}></i></a>
+        <a href={link[i]} target="_blank" style={styles}><i className={`${icon} fa-lg ${item}`}></i></a>
       </div>
     )
   });

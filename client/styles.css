@@ -79,7 +79,7 @@ button:hover {
 
 /*===============================*/
 
-.fab:hover {
+.fa-lg:hover {
     color: turquoise;
     cursor: pointer;
 }
@@ -121,7 +121,7 @@ button:hover {
     z-index: 100;
 }
 
-.sidebarContainer { height: 100%; padding-top: 35px; }
+.sidebarContainer { height: 100%; }
 .sidebar {
     height: 100%;
     background: transparent;
