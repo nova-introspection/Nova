@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import LoadingModal from './LoadingModal.jsx';
 
 const Examples = (props) => {
+  const [active, changeActive] = useState('');
+  useEffect(() => changeActive(''), []);
   const list = ['Pokemon', 'Countries', 'Swapi', 'Catalysis Hub'];
   const colors = ['is-primary', 'is-warning', 'is-info', 'is-light', 'is-dark'];
   const demoLinks = [];
@@ -13,10 +16,14 @@ const Examples = (props) => {
       <div key={`${item}${i}`} className="tile is-parent">
         <div 
           className={`tile is-child box notification button ${colors[i]}`}
-          onClick={(e) => props.handleUrlClick(demoLinks[i], props.history, {button: true})}
+          onClick={(e) => {
+            changeActive('is-active');
+            props.handleUrlClick(demoLinks[i], props.history, {button: true})
+          }}
         >
           <p className="title is-5">{item}</p>
         </div>
+        <LoadingModal isActive={active}/>
       </div>
     )
   });
