@@ -35,11 +35,19 @@ module.exports = env => ({
     new webpack.HotModuleReplacementPlugin(),
   ],
   devServer: {
-    publicPath: '/dist/',
+    host: '0.0.0.0',
+    port: 8080,
+    contentBase: path.resolve(__dirname, 'dist'),
     hot: true,
+    publicPath: '/',
     historyApiFallback: true,
+    inline: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api/*': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
 });

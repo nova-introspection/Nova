@@ -20,6 +20,10 @@ app.get('/dist/bundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../dist/bundle.js'));
 });
 
+app.get('/client/styles.css', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/styles.css'));
+})
+
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });

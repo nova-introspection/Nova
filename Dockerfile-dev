@@ -1,0 +1,17 @@
+#Use dockerhub image for Node
+FROM node:10
+
+#Install Webpack globally
+RUN npm install webpack -g 
+
+#Create App Directory
+WORKDIR /usr/src/app
+
+#INSTALL APP DEPENDENCIES
+COPY package*.json /usr/src/app/
+
+#INSTALL NODE MODULES
+RUN npm install
+
+#EXPOSE PORTS
+EXPOSE 3000
