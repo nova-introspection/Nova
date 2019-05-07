@@ -42,11 +42,11 @@ const MySidebar = (props) => {
           width="wide"
           className="pointerEventsAuto"
         >
-          <Menu.Menu style={{padding:'15px 0'}}>Schema</Menu.Menu>
-          <Menu.Item as="a" onClick={() => changeType('Query')}>
+          <Menu.Menu style={{padding:'25px 5px'}}></Menu.Menu>
+          <Menu.Menu as="a" onClick={() => changeType('Root')} style={{color: '#FFF', fontSize: '19px'}}>
             { type.name }
-          </Menu.Item>
-          <Menu.Item>
+          </Menu.Menu>
+          <Menu.Item style={{fontSize: '18px', textAlign: 'left', paddingLeft: '10px', fontWeight: 'bold', color: 'hsl(204, 86%, 53%)'}}>
             Fields
           </Menu.Item>
           { fields }

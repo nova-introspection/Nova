@@ -11,50 +11,52 @@ function SchemaGraph(data) {
   this.addLinkColor();
 }
 
-SchemaGraph.prototype.addLinkColor = function() {
+SchemaGraph.prototype.addLinkColor = function addLinkColor() {
   const path = this.links;
-  path.forEach(item => {
+  path.forEach((item) => {
     const { source } = item;
     item.color = this.nodeList[source].color;
-  })
-}
+  });
+};
 
-SchemaGraph.prototype.bfsColor = function() {
+SchemaGraph.prototype.bfsColor = function bfsColor() {
   const list = this.adjacencyList;
   const data = this.nodeList;
   const queue = new LinkedList();
-  for(const key in list) { 
-    queue.enqueue(key);
-    data[key].color = 0;
-    break; 
-  }
-  while(!queue.isEmpty()) {
-    const item = queue.dequeue();
-    const color = data[item].color;
-    list[item].forEach(item => {
-      if(data[item].color) return;
-      data[item].color = color+1;
+
+  const root = Object.keys(list)[0];
+  queue.enqueue(root);
+  data[root].color = 0;
+
+  while (!queue.isEmpty()) {
+    const type = queue.dequeue();
+    const { color } = data[type];
+    list[type].forEach((item) => {
+      if (!data[item]) return;
+      if (data[item].color) return;
+      data[item].color = color + 1;
       queue.enqueue(item);
-    })
+    });
   }
-}
+};
 
-SchemaGraph.prototype.addAdjList = function() {
-  for(const key in this.nodeList) {
-    this.adjacencyList[key] = [];
-    const sourceFilter = this.links.filter(item => item.source === key);
-    sourceFilter.forEach(item => { this.adjacencyList[key].push(item.target); })
-  }
-}
+SchemaGraph.prototype.addAdjList = function addAdjList() {
+  const types = Object.keys(this.nodeList);
+  types.forEach((type) => {
+    this.adjacencyList[type] = [];
+    const sourceFilter = this.links.filter(item => item.source === type);
+    sourceFilter.forEach(item => this.adjacencyList[type].push(item.target));
+  });
+};
 
-SchemaGraph.prototype.addTypes = function (data) {
+SchemaGraph.prototype.addTypes = function addTypes(data) {
   data.forEach((type) => {
-    if (type.name[0] !== '_' && type.name[1] !== '_' && type.kind !== 'SCALAR') {
+    if (type.name[0] !== '_' && type.name[1] !== '_' && type.kind === 'OBJECT' && type.name !== 'Mutation') {
       const thisType = new Type(type);
       const { fields } = thisType;
 
       if (fields) {
-        thisType.fields = fields.map((field, i) => {
+        thisType.fields = fields.map((field) => {
           const f = {
             name: field.name,
             description: field.description,
@@ -67,7 +69,7 @@ SchemaGraph.prototype.addTypes = function (data) {
 
           updateTypes(f, field);
 
-          if (f.type.kind !== 'SCALAR' && Object.keys(f.type).length) {
+          if (f.type.kind === 'OBJECT' && Object.keys(f.type).length) {
             this.links.push(new Edge(thisType.name, f.type.name));
           }
           return f;
@@ -98,33 +100,15 @@ function updateTypes(objectToUpdate, data) {
   let { type } = data;
 
   while (type !== null) {
-    switch (type.kind) {
-      case 'NON_NULL':
-        objectToUpdate.isRequired = true;
-        break;
+    const { kind, name } = type;
 
-      case 'LIST':
-        objectToUpdate.isList = true;
-        break;
-
-      case 'OBJECT':
-        objectToUpdate.type.kind = 'OBJECT';
-        objectToUpdate.type.name = type.name;
-        break;
-
-      case 'SCALAR':
-        objectToUpdate.type.kind = 'SCALAR';
-        objectToUpdate.type.name = type.name;
-        break;
-
-      case 'UNION':
-        objectToUpdate.type.kind = 'UNION';
-        objectToUpdate.type.name = type.name;
-        break;
-
-      case 'ENUM':
-        objectToUpdate.type.kind = 'ENUM';
-        objectToUpdate.type.name = type.name;
+    if (kind === 'NON_NULL') {
+      objectToUpdate.isRequired = true;
+    } else if (kind === 'LIST') {
+      objectToUpdate.isList = true;
+    } else {
+      objectToUpdate.type.kind = kind;
+      objectToUpdate.type.name = name;
     }
 
     type = type.ofType;
