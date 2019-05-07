@@ -9,7 +9,7 @@ export const setLinks = (name = '', styles = {}) => {
     const icon = i === 0 ? 'fas' : 'fab';
     return (
       <div key={`${item}${i}`} className={name}>
-        <a href={link[i]} target="_blank" style={styles}><i className={`${icon} fa-lg ${item}`}></i></a>
+        <a href={link[i]} style={styles}><i className={`${icon} fa-lg ${item}`}></i></a>
       </div>
     )
   });
