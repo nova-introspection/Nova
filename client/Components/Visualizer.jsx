@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import Overlay from './Overlay';
 import Graph from './Graph';
 import NoSession from './NoSession';
-import { withRouter } from 'react-router-dom';
 
 const Visualizer = (props) => {
-  if(sessionStorage.getItem('schema') === null) { return <NoSession/> }
+  if (sessionStorage.getItem('schema') === null) { return <NoSession />; }
   const { schemaGraph, location } = props; // can be updated to props destructuring
   const { nodes } = schemaGraph;
   const [sidebarActive, useSidebar] = useState(false);
@@ -16,7 +16,7 @@ const Visualizer = (props) => {
     const body = document.querySelector('body');
     body.classList.add('hid');
     return () => body.classList.remove('hid');
-  }, location.pathname)
+  }, location.pathname);
 
   function toggleSidebar() {
     useSidebar(!sidebarActive);
@@ -32,9 +32,16 @@ const Visualizer = (props) => {
     }
   }
 
+  const styles = {
+    background: '#212121',
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+  };
+
   const active = (sidebarActive) ? 'activeColor' : '';
   return (
-    <div style={{background:'#212121', width:'100vw', height:'100vh', display:'flex'}}>
+    <div style={styles}>
       <Overlay
         toggleSidebar={toggleSidebar}
         colorChange={active}
@@ -42,7 +49,7 @@ const Visualizer = (props) => {
         changeType={changeType}
         currentType={currentType}
       />
-      <Graph data={schemaGraph} handleClick={changeType}/>
+      <Graph data={schemaGraph} handleClick={changeType} />
     </div>
   );
 };

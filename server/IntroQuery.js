@@ -1,9 +1,9 @@
 module.exports = {
-  JSON_STRING: {"operationName":"IntrospectionQuery","variables":{},"query": `query IntrospectionQuery {
+  JSON_STRING: {
+    operationName: 'IntrospectionQuery',
+    variables: {},
+    query: `query IntrospectionQuery {
     __schema {
-      queryType {
-        name
-      }
       types {
         ...FullType
       }
@@ -73,5 +73,6 @@ module.exports = {
         }
       }
     }
-  }`}}
-
+  }`
+ }
+ };

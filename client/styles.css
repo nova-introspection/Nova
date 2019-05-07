@@ -98,7 +98,7 @@ button:hover {
 .clickable { cursor: pointer; }
 .fixed { position: fixed; }
 .pointerEventsAuto { pointer-events: auto; }
-.icon:hover { color: turquoise; }
+.icon { color: #FFF; }
 .is-divider {
     width: 100%;
     margin: 15px 0;
@@ -150,4 +150,20 @@ button:hover {
 
 @media(max-width:500px) {
     #introspect { font-size: 26px; }
+}
+
+.string {
+  color: #e04050;
+}
+
+.int {
+  color: #50e040;
+}
+
+.type {
+  color: hsl(217, 71%, 53%);
+}
+
+.bool {
+  color: hsl(48, 100%, 67%);
 }
