@@ -1,7 +1,7 @@
 const redis = require('redis');
 const parseUrl = require('url-parse');
 
-const redisClient = redis.createClient('redis://redis:6379');
+const redisClient = redis.createClient(process.env.REDIS_URI || 'redis://localhost:6379');
 const { promisify } = require('util');
 
 const getAsync = promisify(redisClient.get).bind(redisClient);

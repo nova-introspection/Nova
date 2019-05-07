@@ -10,7 +10,7 @@
     "docker-dev:hot": "docker-compose -f docker-compose-dev-hot.yml up",
     "build": "webpack --env.NODE_ENV=production",
     "prestart": "npm run build",
-    "start": "node server/server.js"
+    "start": "REDIS_URI=redis://redis:6379 node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
+    "compression-webpack-plugin": "^2.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.1",

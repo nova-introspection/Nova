@@ -13,4 +13,4 @@ RUN npm install --only=production
 EXPOSE 3000
 
 #Execute server file
-ENTRYPOINT [ "node", "./server/server.js" ]
+CMD REDIS_URI=redis://redis:6379 node server/server.js
