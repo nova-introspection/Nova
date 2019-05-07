@@ -17,29 +17,27 @@ app.get('/', (req, res) => {
 });
 
 app.get('/dist/bundle.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/bundle.js'));
+  res.set({
+    'Content-Encoding': 'gzip',
+    'Content-Type': 'application/javascript',
+  });
+  res.sendFile(path.resolve(__dirname, '../dist/bundle.js.gz'));
 });
 
 app.get('/client/styles.css', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/styles.css'));
-})
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
-app.post(
-  '/api/schema',
-  checkCache,
-  getSchema,
-  cacheSchema,
-  (req, res, next) => {
-    res
-      .status(200)
-      .type('application/json')
-      .send(res.locals);
-  },
-);
+app.post('/api/schema', checkCache, getSchema, cacheSchema, (req, res, next) => {
+  res
+    .status(200)
+    .type('application/json')
+    .send(res.locals);
+});
 
 app.listen(PORT, (err) => {
   console.log(`Listening on port ${PORT}....`);
