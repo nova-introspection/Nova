@@ -5,7 +5,7 @@
 }
 
 html { height: 100%; overflow: hidden; }
-body { height: 100%; overflow: hidden; }
+body { height: 100%; overflow: auto; }
 button:focus { outline: none; }
 button {
     padding: 9px 17px;
@@ -30,6 +30,13 @@ button:hover {
     stroke-miterlimit: 10;
     stroke-width: 1.5px;
 }
+.cls-1 { fill: #fff; }
+.cls-2 {
+    fill: none;
+    stroke: #fff;
+    stroke-miterlimit:10;
+    stroke-width:1.5px;
+}
 /*===============================*/
 
 /*LANDING STYLING
@@ -46,11 +53,7 @@ button:hover {
 
 #landingInput {
     margin: 30px 0;
-    min-width: 385px;
-    padding: 10px 18px;
-    font-size: 18px;
-    border: 1px solid lightgray;
-    border-radius: 20px;
+    width: 400px;
 }
 #landingInput:focus { 
     outline: none;
@@ -72,8 +75,14 @@ button:hover {
     color: #D8000C;
 }
 
+.navbar-item > a { color: white; }
+
 /*===============================*/
 
+.fab:hover {
+    color: turquoise;
+    cursor: pointer;
+}
 
 .overlay {
     position: absolute;

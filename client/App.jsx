@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import normalizeUrl from 'normalize-url';
 import Landing from './Components/Landing';
 import Visualizer from './Components/Visualizer';
 import NotFound from './Components/404';
@@ -12,9 +13,10 @@ const App = () => {
   const [loadingState, setLoadingState] = useState(false);
   const handleUrlClick = (e, url, history) => {
     if (e.key === 'Enter') {
+      const normalized = normalizeUrl(url, {forceHttps: true});
       setInvalidSchema(false);
       setLoadingState(true);
-      const postBody = { uri: url };
+      const postBody = { uri: normalized };
       fetch(SERVER_URI, {
         method: 'POST',
         mode: 'cors',
