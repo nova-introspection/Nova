@@ -27,19 +27,6 @@ const TopMenu = (props) => {
       <div className="optionsBox fixed">
         <Setting active={settingsActive} func={toggleSettings}/>
       </div>
-      {/* <Menu attached="top" inverted style={{borderRadius: '0'}}>
-        <Menu.Item onClick={toggleSidebar} style={styles.clickable}>
-          <Icon name="bars" />
-        </Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item onClick={() => toggleSettings()} style={styles.clickable}>
-            <Icon name="ellipsis horizontal" />
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-      <div style={styles.settings}>
-        <Setting active={settingsActive} func={toggleSettings}/>
-      </div> */}
     </nav>
   );
 };

@@ -11,8 +11,8 @@ const App = () => {
   const [schema, setSchema] = useState(JSON.parse(sessionStorage.getItem('schema')) || null);
   const [invalidSchema, setInvalidSchema] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
-  const handleUrlClick = (e, url, history) => {
-    if (e.key === 'Enter') {
+  const handleUrlClick = (url, history, e = { key: false, button: false }) => {
+    if (e.key === 'Enter' || e.button === true) {
       const normalized = normalizeUrl(url, {forceHttps: true});
       setInvalidSchema(false);
       setLoadingState(true);

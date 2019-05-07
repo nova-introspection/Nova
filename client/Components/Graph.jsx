@@ -5,13 +5,14 @@ const Graph = (props) => {
   const { handleClick, data } = props;
   const [width, changeWidth] = useState(window.innerWidth);
   const [height, changeHeight] = useState(window.innerHeight);
-  data.nodes.forEach(item => { item.radius = item.name.length * 3.5 + 25; });
+  data.nodes.forEach(item => { item.radius = item.name.length * 4.4 + 25; });
   useEffect(() => { graphSetup.setup(data, handleClick); }, data);
   useEffect(() => {
-    window.addEventListener('resize', () => {
+    const wind = () => {
       changeWidth(window.innerWidth);
       changeHeight(window.innerHeight);
-    });
+    }; window.addEventListener('resize', wind);
+    return () => window.removeEventListener('resize', wind);
   }, [width, height]);
   return (
     <svg id="graph" width={width} height={height}>
