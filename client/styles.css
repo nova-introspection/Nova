@@ -145,6 +145,14 @@ button:hover {
     margin: 0;
     padding-left: 5px; 
 }
+.modal-background { background-color: rgba(15, 15, 25, 0.45) !important; }
+.colorScheme > div {
+    width:11px;
+    height:11px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 1px solid black;
+}
 .btnContainer { margin: 10px 0; width: 100%; }
 .settingsBtn:hover { background: #e6e5e5 }
 

@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-const color = d3.scaleOrdinal(d3.schemePastel1);
+export const color = d3.scaleOrdinal(d3.schemePastel1);
 
 export default {
   links: {
