@@ -9,8 +9,7 @@ WORKDIR /usr/src/app
 
 #INSTALL APP DEPENDENCIES
 COPY package*.json /usr/src/app/
-
-#INSTALL NODE MODULES
+RUN npm install compression-webpack-plugin
 RUN npm install
 
 #EXPOSE PORTS
