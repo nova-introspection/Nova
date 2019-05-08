@@ -7,6 +7,7 @@ import NoSession from './NoSession';
 const Visualizer = (props) => {
   if (sessionStorage.getItem('schema') === null) { return <NoSession />; }
   const { schemaGraph, location } = props; // can be updated to props destructuring
+  const rootName = schemaGraph.nodes[0].name;
   const { nodes } = schemaGraph;
   const [sidebarActive, useSidebar] = useState(false);
   const [currentType, useCurrentType] = useState(nodes[0]);
@@ -48,6 +49,7 @@ const Visualizer = (props) => {
         visible={sidebarActive}
         changeType={changeType}
         currentType={currentType}
+        root={rootName}
       />
       <Graph data={schemaGraph} handleClick={changeType} />
     </div>

@@ -3,7 +3,6 @@ import {
   Menu,
   Segment,
   Sidebar,
-  Icon,
 } from 'semantic-ui-react';
 import Field from './Field';
 
@@ -15,7 +14,7 @@ const styles = {
 };
 
 const MySidebar = (props) => {
-  const { visible, type, changeType } = props;
+  const { visible, type, changeType, root } = props;
   let fields;
   if (type.fields) {
     fields = type.fields.map(currentField => (
@@ -30,29 +29,38 @@ const MySidebar = (props) => {
   }
 
   return (
-    <div className="sidebarContainer">
-      <Sidebar.Pushable as={Segment} style={styles.sidebar}>
-        <Sidebar
-          as={Menu}
-          animation="overlay"
-          icon="labeled"
-          inverted
-          vertical
-          visible={visible}
-          width="wide"
-          className="pointerEventsAuto"
-        >
-          <Menu.Menu style={{padding:'25px 5px'}}></Menu.Menu>
-          <Menu.Menu as="a" onClick={() => changeType('Root')} style={{color: '#FFF', fontSize: '19px'}}>
-            { type.name }
-          </Menu.Menu>
-          <Menu.Item style={{fontSize: '18px', textAlign: 'left', paddingLeft: '10px', fontWeight: 'bold', color: 'hsl(204, 86%, 53%)'}}>
-            Fields
-          </Menu.Item>
-          { fields }
-        </Sidebar>
-      </Sidebar.Pushable>
-    </div>
+    <Sidebar
+      as={Menu}
+      animation="overlay"
+      icon="labeled"
+      inverted
+      vertical
+      visible={visible}
+      width="wide"
+      className="pointerEventsAuto"
+      style={{
+        overflow: 'hidden',
+        zIndex: -1,
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100%' }}>
+        <div onClick={() => changeType(root)} style={{height: '80px', color: '#FFF', fontSize: '19px', padding: '40px 0px' }}>
+          { type.name }
+        </div>
+        {/* <Menu.Item style={{ fontSize: '18px', textAlign: 'left', paddingLeft: '10px', fontWeight: 'bold', color: 'hsl(204, 86%, 53%)', marginIop: '100px' }}>
+          Fields
+        </Menu.Item> */}
+        <div style={{ height: '60px', fontSize: '18px', textAlign: 'left', padding: '20px', fontWeight: 'bold', color: 'hsl(204, 86%, 53%)', marginIop: '100px', borderBottom: 'solid 1px #2a2a2a'}} >
+          Fields
+        </div>
+        <div style={{flexGrow: 4, overflow: 'auto'}}>
+          { fields }  
+        </div>
+      </div>
+      {/* <div style={{ height: '100%' }}> */}
+        {/* { fields } */}
+      {/* </div> */}
+    </Sidebar>
   );
 };
 
