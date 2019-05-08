@@ -148,6 +148,10 @@ button:hover {
 .btnContainer { margin: 10px 0; width: 100%; }
 .settingsBtn:hover { background: #e6e5e5 }
 
+.overlay>div>div>p>.fas {
+    color: #fff !important;
+}
+
 @media(max-width:500px) {
     #introspect { font-size: 26px; }
 }

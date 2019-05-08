@@ -5,7 +5,7 @@ import Landing from './Components/Landing';
 import Visualizer from './Components/Visualizer';
 import NotFound from './Components/404';
 
-const SERVER_URI = 'http://localhost:3000/api/schema';
+const SERVER_URI = 'http://0.0.0.0:3000/api/schema';
 
 const App = () => {
   const [schema, setSchema] = useState(JSON.parse(sessionStorage.getItem('schema')) || null);
