@@ -39,14 +39,13 @@ module.exports = env => ({
   devServer: {
     host: '0.0.0.0',
     port: 8080,
-    contentBase: path.resolve(__dirname, 'dist'),
     hot: true,
-    publicPath: '/',
+    publicPath: '/dist/',
     historyApiFallback: true,
     inline: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      '/api/*': {
+      '/api/**': {
         target: 'http://localhost:3000/',
         secure: false,
       },
