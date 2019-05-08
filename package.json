@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest --config ./__tests__/jest.config.json",
     "dev": "webpack-dev-server --env.NODE_ENV=development",
     "dev:hot": "NODE_ENV=development REDIS_URI=redis://redis:6379 node ./server/server.js & webpack-dev-server --env.NODE_ENV=development --hot --inline --progress --colors --watch --content-base ./",
     "docker-dev:hot": "docker-compose -f docker-compose-dev-hot.yml up",
@@ -25,9 +25,14 @@
   "homepage": "https://github.com/nova-introspection/Nova#readme",
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.5",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.1",
