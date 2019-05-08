@@ -2,10 +2,13 @@
 FROM node:10
 
 #Install Webpack globally
-RUN npm install webpack -g 
+RUN npm install -g webpack 
 
 #Create App Directory
 WORKDIR /usr/src/app
+
+ENV NODE_ENV=development
+
 
 #INSTALL APP DEPENDENCIES
 COPY package*.json /usr/src/app/
