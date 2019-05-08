@@ -5,7 +5,7 @@ services:
     container_name: "nova-dev-hot"
     ports: 
     - "8080:8080"
-    # - "3000:3000"
+    - "3000:3000"
     volumes:
     - ./:/usr/src/app
     - node_modules:/usr/src/app/node_modules
