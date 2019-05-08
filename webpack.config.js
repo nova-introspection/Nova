@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = env => ({
   mode: env.NODE_ENV,
@@ -33,13 +34,21 @@ module.exports = env => ({
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new CompressionPlugin(),
   ],
   devServer: {
-    publicPath: '/dist/',
+    host: '0.0.0.0',
+    port: 8080,
     hot: true,
+    publicPath: '/dist/',
     historyApiFallback: true,
+    inline: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api/**': {
+        target: 'http://localhost:3000/',
+        secure: false,
+      },
     },
   },
 });

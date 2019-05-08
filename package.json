@@ -6,9 +6,11 @@
   "scripts": {
     "test": "jest --verbose",
     "dev": "webpack-dev-server --env.NODE_ENV=development",
+    "dev:hot": "NODE_ENV=development REDIS_URI=redis://redis:6379 node ./server/server.js & webpack-dev-server --env.NODE_ENV=development --open --hot --inline --progress --colors --watch --content-base ./",
+    "docker-dev:hot": "docker-compose -f docker-compose-dev-hot.yml up",
     "build": "webpack --env.NODE_ENV=production",
     "prestart": "npm run build",
-    "start": "node server/server.js"
+    "start": "REDIS_URI=redis://redis:6379 node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "compression-webpack-plugin": "^2.0.0",
     "cors": "^2.8.5",
     "css-loader": "^2.1.1",
     "d3": "^5.9.2",
