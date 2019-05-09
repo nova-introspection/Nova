@@ -3,8 +3,8 @@ import { WhiteLogo } from '../../assets/novaFullLogo.jsx';
 
 
 export const setLinks = (name = '', styles = {}) => {
-  const links = ['fa-envelope', 'fab fa-hacker-news-square','fa-product-hunt', 'fa-twitter', 'fa-github'];
-  const link = ['#', '#', '#', '#', 'https://github.com/nova-introspection/Nova'];
+  const links = ['fa-envelope','fa-product-hunt', 'fa-twitter', 'fa-github'];
+  const link = ['mailto:nova.introspection@gmail.com', 'https://www.producthunt.com/posts/nova-5', 'https://twitter.com/nova_introspect', 'https://github.com/nova-introspection/Nova'];
   return links.map((item, i) => {
     const icon = i === 0 ? 'fas' : 'fab';
     return (
