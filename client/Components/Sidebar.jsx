@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Menu,
   Segment,
@@ -14,11 +15,13 @@ const styles = {
 };
 
 const MySidebar = (props) => {
-  const { visible, type, changeType, root } = props;
+  const { visible, type, changeType, root, data } = props;
   let fields;
   if (type.fields) {
     fields = type.fields.map(currentField => (
+      
       <Field
+        data={data}
         key={currentField.name}
         field={currentField}
         handleClick={() => changeType(currentField.type.name)}
@@ -44,12 +47,9 @@ const MySidebar = (props) => {
       }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '100%' }}>
-        <div onClick={() => changeType(root)} style={{height: '80px', color: '#FFF', fontSize: '19px', padding: '40px 0px' }}>
+        <div onClick={() => changeType(root)} style={{height: '80px', color: '#FFF', fontSize: '19px', padding: '40px 0px', cursor: 'pointer' }}>
           { type.name }
         </div>
-        {/* <Menu.Item style={{ fontSize: '18px', textAlign: 'left', paddingLeft: '10px', fontWeight: 'bold', color: 'hsl(204, 86%, 53%)', marginIop: '100px' }}>
-          Fields
-        </Menu.Item> */}
         <div style={{ height: '60px', fontSize: '18px', textAlign: 'left', padding: '20px', fontWeight: 'bold', color: 'hsl(204, 86%, 53%)', marginIop: '100px', borderBottom: 'solid 1px #2a2a2a'}} >
           Fields
         </div>
@@ -57,9 +57,6 @@ const MySidebar = (props) => {
           { fields }  
         </div>
       </div>
-      {/* <div style={{ height: '100%' }}> */}
-        {/* { fields } */}
-      {/* </div> */}
     </Sidebar>
   );
 };

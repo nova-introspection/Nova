@@ -2,6 +2,13 @@ import * as d3 from 'd3';
 import { equal } from 'assert';
 import graphFunctions from './graphFunctions';
 
+const store = {
+  g: null,
+  node: null,
+  link: null,
+  data: null,
+};
+
 export default {
   reset: () => {
     d3.select('g')
@@ -35,10 +42,10 @@ export default {
       .force('collide', collideForce)
       .force('center', centerForce)
       .force('links', linkForce)
-      //.force('forceX', d3.forceX(width / 2).strength(0.025))
-      //.force('forceY', d3.forceY(height / 2).strength(0.025))
-      .force('x', d3.forceX().x(d => {
-        if(d.color === undefined) return 0;
+      // .force('forceX', d3.forceX(width / 2).strength(0.025))
+      // .force('forceY', d3.forceY(height / 2).strength(0.025))
+      .force('x', d3.forceX().x((d) => {
+        if (d.color === undefined) return 0;
         const num = (d.color > 3) ? 3 : d.color;
         return xCenter[num];
       }))
@@ -46,29 +53,29 @@ export default {
     // .force("forceX",d3.forceX(width/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     // .force("forceY",d3.forceY(height/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     simulation.on('tick', tickActions);
-
+    
     const g = d3.select('.everything');
-    g.on('click', () => {
-      console.log('!');
-    });
-    // graphFunctions.links.addArrows(g);
-
+    
     const link = g
-      .append('svg:g')
-      .selectAll('path')
-      .data(data.links)
-      .enter()
-      .append('svg:path');
+    .append('svg:g')
+    .selectAll('path')
+    .data(data.links)
+    .enter()
+    .append('svg:path');
 
     graphFunctions.links.addPath(link);
-
+    
     const node = g
-      .append('g')
+    .append('g')
       .selectAll('circle')
       .data(data.nodes)
       .enter()
       .append('g');
-
+      
+    store.g = g;
+    store.data = data;
+    store.link = link;
+    store.node = node;
     node
       .append('circle')
       .attr('class', 'nodes')
@@ -144,5 +151,42 @@ export default {
         link.attr('marker-end', o => (opacity === 1 || o.source === d ? 'url(#end-arrow)' : 'url(#end-arrow-fade)'));
       };
     }
+  },
+  fade(typeName) {
+    // const g = d3.select('.everything');
+
+    const color = d3.scaleOrdinal(d3.schemePastel1);
+
+    const { g, node, link, data } = store;
+
+    const linkedByIndex = graphFunctions.links.linkedByIndex(data.links);
+
+    function fade(opacity) {
+      console.log('fade called');
+      return (d) => {
+        // update nodes opacity; loops through all nodes
+        node.style('stroke-opacity', function (o) {
+          const thisOpacity = graphFunctions.links.isConnected(d, o, linkedByIndex) ? 1 : opacity;
+          this.setAttribute('fill-opacity', thisOpacity);
+          return thisOpacity;
+        });
+        node.select('circle').style('color', function (o) {
+          const col = o.color ? o.color : 0;
+          const bright = d3.rgb(color(col)).brighter(0.3);
+          const original = d3.rgb(color(col));
+          const fill = opacity === 1 ? original : bright;
+          this.setAttribute('fill', fill);
+        });
+        link.style('stroke-opacity', o => (o.source === d ? 1 : opacity));
+        link.attr('marker-end', o => (opacity === 1 || o.source === d ? 'url(#end-arrow)' : 'url(#end-arrow-fade)'));
+      };
+    }
+
+    d3.selectAll('circle').each((d) => {
+      if (d.name === typeName) {
+        console.log('its a me');
+        fade(0.04)(d);
+      }
+    });
   },
 };

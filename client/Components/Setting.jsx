@@ -15,9 +15,9 @@ const Setting = (props) => {
     const des = (i === 0) ? ' - Root' : ` - Level ${num} out`;
     return (
       <div key={`colorScheme${num}${i}`} className="dropdown-item">
-        <p className="colorScheme"><div style={{background: color(num)}}></div>{des}</p>
+        <div className="colorScheme"><div style={{background: color(num)}}></div>{des}</div>
       </div>
-    )
+    );
   });
   return (
     <div className={`dropdown ${display} is-right pointerEventsAuto`}>

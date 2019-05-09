@@ -10,6 +10,7 @@ const Overlay = (props) => {
     changeType,
     currentType,
     root,
+    data,
   } = props;
 
   return (
@@ -20,6 +21,7 @@ const Overlay = (props) => {
         type={currentType}
         changeType={changeType}
         root={root}
+        data={data}
       />
     </div>
   );
