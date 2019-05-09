@@ -32,7 +32,7 @@ export default {
     const linkForce = d3
       .forceLink(data.links)
       .id(d => d.name)
-      .distance(d => d.source.radius + d.target.radius + 700);
+      .distance(d => d.source.radius + d.target.radius + 800);
     // .distance(function(d) { return radius(d.source.value / 2) + radius(d.target.value / 2); });
     const chargeForce = d3.forceManyBody().strength(-300);
     const centerForce = d3.forceCenter(width / 2, height / 2);
@@ -49,7 +49,7 @@ export default {
         const num = (d.color > 3) ? 3 : d.color;
         return xCenter[num];
       }))
-      .force('y', d3.forceY().y(() => 0));
+      .force('y', d3.forceY().y(d => 0))
     // .force("forceX",d3.forceX(width/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     // .force("forceY",d3.forceY(height/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
     simulation.on('tick', tickActions);
