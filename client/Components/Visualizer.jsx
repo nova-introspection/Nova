@@ -50,6 +50,7 @@ const Visualizer = (props) => {
         changeType={changeType}
         currentType={currentType}
         root={rootName}
+        data={schemaGraph}
       />
       <Graph data={schemaGraph} handleClick={changeType} />
     </div>
