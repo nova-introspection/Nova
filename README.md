@@ -6,7 +6,7 @@ Front Page                      | Visualizer Page
 ![](client/assets/landingP.png) |![](client/assets/VisP.png)
 
 ### How to use
-Head over to [novaql.dev](novaql.dev) (currently not https)     
+Head over to [novaql.dev](http://novaql.dev) (currently not https)     
 Just enter a GraphQL endpoint! Nova will create an interactive visualization that represents the schema.
 
 
