@@ -5,6 +5,14 @@ import Description from './LandingSections/Description.jsx';
 // import Contact from './LandingSections/Contact.jsx';
 import Footer from './LandingSections/Footer.jsx';
 
+const HeroFoot = (props) => (
+  <div className="hero-foot" style={{marginBottom:'25px', paddingLeft: '25px'}}> 
+    <div className="container">
+        <p><i className="fas fas fa-arrow-down" style={{color:'turquoise'}}></i> <strong>Demos down below!</strong></p>
+    </div>
+  </div>
+)
+
 const Landing = (props) => {
   const [urlText, setUrlText] = useState('');
   // conditional rendering for loading/error text
@@ -44,6 +52,7 @@ const Landing = (props) => {
             </div>
           </div>
         </div>
+        <HeroFoot/>
       </section>
       <div className="container">
         <Description/>
