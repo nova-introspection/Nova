@@ -8,7 +8,9 @@ const Overlay = (props) => {
     colorChange,
     visible,
     changeType,
-    currentType
+    currentType,
+    root,
+    data,
   } = props;
 
   return (
@@ -18,6 +20,8 @@ const Overlay = (props) => {
         visible={visible}
         type={currentType}
         changeType={changeType}
+        root={root}
+        data={data}
       />
     </div>
   );

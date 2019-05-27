@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
+import  f  from '../dthreeHelpers/graphSetup';
 
 const styles = {
   container: {
@@ -20,7 +21,7 @@ const styles = {
 };
 
 const Field = (props) => {
-  const { field, handleClick } = props;
+  const { field, handleClick, data } = props;
   const [showDesc, useDesc] = useState(false);
   let fieldType = field.type.name;
 
@@ -52,17 +53,17 @@ const Field = (props) => {
   return (
     <div style={styles.container}>
       <div style={styles.field}>
-        <p
+        <div
           onClick={toggleDesc}
         >
-          {field.name}: <br></br><span
-            onClick={() => handleClick(field.type.name)}
+          <span>{field.name}</span>: <br></br><span
+            onClick={() => {f.fade(field.type.name); handleClick(field.type.name)} }
             className={typeColor()}
           >
             {fieldType}
           </span>
           <i style={{float: 'right', color: '#444444'}} className={`fas ${activeIcon()}`}></i>
-        </p>
+        </div>
       </div>
       {showDesc && (<div style={styles.description}>
         {field.description || 'Description not available.'}
