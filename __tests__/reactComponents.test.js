@@ -12,13 +12,12 @@ describe('React unit testing', () => {
   describe('Landing Page', () => {
     let wrapper;
     const props = {
-      // invalidSchema: true,
-      // loadingState: false,
-      // handleUrlClick: jest.fn()
-      isActive: true
+      invalidSchema: true,
+      loadingState: false,
+      handleUrlClick: jest.fn(),
     };
     beforeAll(() => {
-      wrapper = shallow(<LandingModal {...props} />);
+      wrapper = shallow(<Landing {...props} />);
     });
     it('Loading text contains Invalid Schema text if invalidScheme prop is true', () => {
       //expect(wrapper.find('.is-size-5').text()).toEqual('hi');
