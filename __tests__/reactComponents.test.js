@@ -19,8 +19,14 @@ describe('React unit testing', () => {
     beforeAll(() => {
       wrapper = shallow(<Landing {...props} />);
     });
-    it('Loading text contains Invalid Schema text if invalidScheme prop is true', () => {
-      //expect(wrapper.find('.is-size-5').text()).toEqual('hi');
+    describe('loadingText', () => {
+      it('Loading text contains Invalid Schema text if invalidSchema prop is true', () => {
+        expect(wrapper.find('.is-size-5').text()).toEqual('Invalid GraphQL endpoint, please try again');
+      });
+      it('Loading text contains processing schema if loadingState prop is true', () => {
+        wrapper = shallow(<Landing loadingState={true}/>);
+        expect(wrapper.find('.is-size-5').text()).toEqual('Processing GraphQL Schema...');
+      });
     });
   });
 });
