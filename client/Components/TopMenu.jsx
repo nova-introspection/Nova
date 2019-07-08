@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, Icon } from 'semantic-ui-react';
 import Setting from './Setting';
 
-const TopMenu = (props) => {
-  const { toggleSidebar, colorChange } = props;
+const TopMenu = ({ toggleSidebar, colorChange }) => {
   const [settingsActive, useSettings] = useState(false);
 
   function toggleSettings() {
@@ -12,20 +10,20 @@ const TopMenu = (props) => {
   const active = (settingsActive) ? 'activeColor' : '';
   return (
     <nav>
-      <div 
-        onClick={toggleSidebar} 
+      <div
+        onClick={toggleSidebar}
         className={`whitesmoke fixed clickable menu pointerEventsAuto icon ${colorChange}`}
       >
-        <i className="fas fa-grip-lines fa-lg"></i>
+        <i className="fas fa-grip-lines fa-lg" />
       </div>
-      <div 
-        onClick={() => toggleSettings() } 
+      <div
+        onClick={() => toggleSettings()}
         className={`whitesmoke fixed clickable options pointerEventsAuto icon ${active}`}
       >
-        <i className="fas fa-ellipsis-h fa-lg"></i>
+        <i className="fas fa-ellipsis-h fa-lg" />
       </div>
       <div className="optionsBox fixed">
-        <Setting active={settingsActive} func={toggleSettings}/>
+        <Setting active={settingsActive} func={toggleSettings} />
       </div>
     </nav>
   );

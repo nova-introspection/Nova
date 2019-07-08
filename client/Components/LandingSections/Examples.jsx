@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import LoadingModal from './LoadingModal.jsx';
+import LoadingModal from './LoadingModal';
 
-const Examples = (props) => {
+const Examples = ({ handleUrlClick, history }) => {
   const [active, changeActive] = useState('');
   useEffect(() => changeActive(''), []);
   const list = ['Pokemon', 'Countries', 'Swapi', 'Catalysis Hub'];
@@ -11,22 +11,20 @@ const Examples = (props) => {
   demoLinks[1] = 'https://countries.trevorblades.com/';
   demoLinks[2] = 'https://swapi.apis.guru';
   demoLinks[3] = 'http://api.catalysis-hub.org/graphql';
-  const display = list.map((item, i) => {
-    return (
-      <div key={`${item}${i}`} className="tile is-parent">
-        <div 
-          className={`tile is-child box notification button ${colors[i]}`}
-          onClick={(e) => {
-            changeActive('is-active');
-            props.handleUrlClick(demoLinks[i], props.history, {button: true})
-          }}
-        >
-          <p className="title is-5">{item}</p>
-        </div>
-        <LoadingModal isActive={active}/>
+  const display = list.map((item, i) => (
+    <div key={`${item}${i}`} className="tile is-parent">
+      <div
+        className={`tile is-child box notification button ${colors[i]}`}
+        onClick={() => {
+          changeActive('is-active');
+          handleUrlClick(demoLinks[i], history, { button: true });
+        }}
+      >
+        <p className="title is-5">{item}</p>
       </div>
-    )
-  });
+      <LoadingModal isActive={active} />
+    </div>
+  ));
   return (
     <section className="section">
       <p className="title is-4">Demo</p>
@@ -34,7 +32,7 @@ const Examples = (props) => {
         {display}
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Examples;
