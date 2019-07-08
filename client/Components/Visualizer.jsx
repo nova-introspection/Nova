@@ -4,9 +4,8 @@ import Overlay from './Overlay';
 import Graph from './Graph';
 import NoSession from './NoSession';
 
-const Visualizer = (props) => {
+const Visualizer = ({ schemaGraph, location }) => {
   if (sessionStorage.getItem('schema') === null) { return <NoSession />; }
-  const { schemaGraph, location } = props; // can be updated to props destructuring
   const rootName = schemaGraph.nodes[0].name;
   const { nodes } = schemaGraph;
   const [sidebarActive, useSidebar] = useState(false);

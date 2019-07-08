@@ -1,18 +1,17 @@
 import React from 'react';
-import { setLinks } from './Nav.jsx';
+import { setLinks } from './Nav';
 
-const Footer = (props) => {
-  return (
-    <footer className="footer notification is-white">
-      <div className="container">
-        <div className="content">
-          <div className="level is-mobile" style={{width:'33%'}}>
-            {setLinks('level-item', {fontSize:'20px', color:'hsl(0, 0%, 21%)'})}
-          </div>
+const Footer = () => (
+  <footer className="footer notification is-white">
+    <div className="container">
+      <div className="content">
+        <div className="level is-mobile" style={{ width: '33%' }}>
+          {setLinks('level-item', { fontSize: '20px', color: 'hsl(0, 0%, 21%)' })}
         </div>
       </div>
-    </footer>
-  )
-}
+    </div>
+  </footer>
+);
+
 
 export default Footer;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import normalizeUrl from 'normalize-url';
 import Landing from './Components/Landing';
@@ -13,7 +13,7 @@ const App = () => {
   const [loadingState, setLoadingState] = useState(false);
   const handleUrlClick = (url, history, e = { key: false, button: false }) => {
     if (e.key === 'Enter' || e.button === true) {
-      const normalized = normalizeUrl(url, {forceHttps: true});
+      const normalized = normalizeUrl(url, { forceHttps: true });
       setInvalidSchema(false);
       setLoadingState(true);
       const postBody = { uri: normalized };
@@ -35,7 +35,7 @@ const App = () => {
           setLoadingState(false);
           history.push('/visualizer');
         })
-        .catch(err => setInvalidSchema(true));
+        .catch(() => setInvalidSchema(true));
     }
   };
 

@@ -81,7 +81,7 @@ SchemaGraph.prototype.addTypes = function addTypes(data) {
   });
 };
 
-function Edge(source, target, color) {
+function Edge(source, target) {
   this.source = source;
   this.target = target;
 }
@@ -116,5 +116,3 @@ function updateTypes(objectToUpdate, data) {
 }
 
 module.exports = { SchemaGraph };
-
-// b = new SchemaGraph(a.data.__schema.types)

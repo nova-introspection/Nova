@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import { equal } from 'assert';
 import graphFunctions from './graphFunctions';
 
 const store = {
@@ -23,7 +22,6 @@ export default {
       fade(0.25);
     };
     const color = d3.scaleOrdinal(d3.schemePastel1);
-    // const radius = d3.scaleSqrt().range([0, 6]);
     const svg = d3.select('#graph');
     const xCenter = [400, 1400, 2400, 3400];
     const width = +svg.attr('width');
@@ -33,7 +31,6 @@ export default {
       .forceLink(data.links)
       .id(d => d.name)
       .distance(d => d.source.radius + d.target.radius + 800);
-    // .distance(function(d) { return radius(d.source.value / 2) + radius(d.target.value / 2); });
     const chargeForce = d3.forceManyBody().strength(-300);
     const centerForce = d3.forceCenter(width / 2, height / 2);
     const collideForce = d3.forceCollide().radius(d => d.radius * 1.5);
@@ -42,36 +39,32 @@ export default {
       .force('collide', collideForce)
       .force('center', centerForce)
       .force('links', linkForce)
-      // .force('forceX', d3.forceX(width / 2).strength(0.025))
-      // .force('forceY', d3.forceY(height / 2).strength(0.025))
       .force('x', d3.forceX().x((d) => {
         if (d.color === undefined) return 0;
         const num = (d.color > 3) ? 3 : d.color;
         return xCenter[num];
       }))
-      .force('y', d3.forceY().y(d => 0))
-    // .force("forceX",d3.forceX(width/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
-    // .force("forceY",d3.forceY(height/2).strength(function(d){ return (!d.notLinked) ? 0 : 0.05; }) )
+      .force('y', d3.forceY().y(d => 0));
     simulation.on('tick', tickActions);
-    
+
     const g = d3.select('.everything');
-    
+
     const link = g
-    .append('svg:g')
-    .selectAll('path')
-    .data(data.links)
-    .enter()
-    .append('svg:path');
+      .append('svg:g')
+      .selectAll('path')
+      .data(data.links)
+      .enter()
+      .append('svg:path');
 
     graphFunctions.links.addPath(link);
-    
+
     const node = g
-    .append('g')
+      .append('g')
       .selectAll('circle')
       .data(data.nodes)
       .enter()
       .append('g');
-      
+
     store.g = g;
     store.data = data;
     store.link = link;
@@ -83,12 +76,10 @@ export default {
       .attr('fill', graphFunctions.nodes.circleColour)
       .style('stroke', graphFunctions.nodes.darkerStroke)
       .style('stroke-width', 3)
-      // .on('click', graphFunctions.nodes.clickNode)
       .on('click', (d) => {
         fade(0.04)(d);
         graphFunctions.nodes.clickNode(d);
       })
-      // .on('click', fade(0.25))
       .on('mouseover', () => {
         document.querySelector('body').style.cursor = 'pointer';
       })
@@ -97,7 +88,7 @@ export default {
       });
 
     function equalToEventTarget() {
-      return this == d3.event.target;
+      return this === d3.event.target;
     }
 
     svg.on('click', () => {
@@ -135,12 +126,12 @@ export default {
     function fade(opacity) {
       return (d) => {
         // update nodes opacity; loops through all nodes
-        node.style('stroke-opacity', function (o) {
+        node.style('stroke-opacity', function updateOpacity(o) {
           const thisOpacity = graphFunctions.links.isConnected(d, o, linkedByIndex) ? 1 : opacity;
           this.setAttribute('fill-opacity', thisOpacity);
           return thisOpacity;
         });
-        node.select('circle').style('color', function (o) {
+        node.select('circle').style('color', function updateColor(o) {
           const col = o.color ? o.color : 0;
           const bright = d3.rgb(color(col)).brighter(0.3);
           const original = d3.rgb(color(col));
@@ -153,24 +144,23 @@ export default {
     }
   },
   fade(typeName) {
-    // const g = d3.select('.everything');
-
     const color = d3.scaleOrdinal(d3.schemePastel1);
 
-    const { g, node, link, data } = store;
+    const {
+      node, link, data,
+    } = store;
 
     const linkedByIndex = graphFunctions.links.linkedByIndex(data.links);
 
     function fade(opacity) {
-      console.log('fade called');
       return (d) => {
         // update nodes opacity; loops through all nodes
-        node.style('stroke-opacity', function (o) {
+        node.style('stroke-opacity', function updateOpacity(o) {
           const thisOpacity = graphFunctions.links.isConnected(d, o, linkedByIndex) ? 1 : opacity;
           this.setAttribute('fill-opacity', thisOpacity);
           return thisOpacity;
         });
-        node.select('circle').style('color', function (o) {
+        node.select('circle').style('color', function updateColor(o) {
           const col = o.color ? o.color : 0;
           const bright = d3.rgb(color(col)).brighter(0.3);
           const original = d3.rgb(color(col));
@@ -184,7 +174,6 @@ export default {
 
     d3.selectAll('circle').each((d) => {
       if (d.name === typeName) {
-        console.log('its a me');
         fade(0.04)(d);
       }
     });

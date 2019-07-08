@@ -8,7 +8,7 @@ export default {
       g.append('svg:defs').selectAll('marker')
         .data(['end-arrow']) // Different link/path types can be defined here
         .enter()
-        .append('svg:marker') // This section adds in the arrows
+        .append('svg:marker') // This property adds in the arrows
         .attr('id', String)
         .attr('viewBox', '0 -5 10 10')
         .attr('refX', 10)
@@ -28,17 +28,13 @@ export default {
           const col = (d.color) ? d.color : 0;
           return d3.rgb(color(col)).darker(0.5);
         })
-      // .attr('id', d => { return `${d.source.name} => ${d.target.name}`; })
         .attr('marker-end', 'url(#end-arrow)');
-    },
-    addLinkText: (edgePaths) => {
-
     },
     linkedByIndex: data => data.reduce((acc, d) => {
       acc[`${d.source.index},${d.target.index}`] = 1;
       return acc;
     }, {}),
-    isConnected: (a, b, obj) => obj[`${a.index},${b.index}`] || a.index === b.index, // || obj[`${b.index},${a.index}`]
+    isConnected: (a, b, obj) => obj[`${a.index},${b.index}`] || a.index === b.index,
   },
   nodes: {
     circleColour: (d) => {
@@ -51,11 +47,8 @@ export default {
     },
     radius: d => d.radius,
     addTextAndTitle: (node) => {
-      // node.append('title').text(d => d.name);
       node.append('text')
         .attr('text-anchor', 'middle')
-      // .attr('x', '15px')
-      // .attr('y', '-15px')
         .attr('dy', '.35em')
         .text(d => d.name)
         .style('fill', 'black')
@@ -111,7 +104,7 @@ export default {
       d.fx = d.x;
       d.fy = d.y;
     },
-    dragDrag: sim => (d) => {
+    dragDrag: () => (d) => {
       d.fx = d3.event.x;
       d.fy = d3.event.y;
     },
