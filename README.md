@@ -1,12 +1,12 @@
 # <img src="./client/assets/logo.png" width="30"> Nova
 ## GraphQL Schema visualizer for developers
 
+## No Longer Used
+## Moved to [/nova-introspection/novaql](https://github.com/nova-introspection/novaql)
+
 Front Page                      | Visualizer Page
 :------------------------------:|:-------------------------:
 ![](client/assets/landingP.png) |![](client/assets/VisP.png)
-
-**No Longer Used**
-**Moved to [/nova-introspection/novaql](https://github.com/nova-introspection/novaql)**
 
 ### How to use
 Head over to [novaql.com](http://novaql.com)            
